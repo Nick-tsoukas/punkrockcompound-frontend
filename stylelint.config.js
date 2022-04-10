@@ -9,5 +9,9 @@ module.exports = {
   // https://stylelint.io/user-guide/configuration
   rules: {
     'color-no-invalid-hex': true,
+    'selector-class-pattern': null,
+    'rule-empty-line-before': null,
+    'color-function-notation': null,
+    'alpha-value-notation': null,
   },
 }

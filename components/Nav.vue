@@ -1,203 +1,91 @@
 <template>
-  <div class="w-screen p-4 flex items-center bg-white shad">
-    <!-- mobile view -->
-
-    <!-- mobile header  -->
-
-    <!-- mobile logo -->
-    <div class="flex items-center z-40">
-      <div class="pr-2">
-        <img
-          style="height: 50px; width: 50px"
-          src="/logo_icon.svg"
-          alt="punk rock compound icon"
-        />
-      </div>
-      <div
-        :class="{ blackTitle: isOpen, whiteTitle: !isOpen }"
-        class="transition-all"
-      >
-        Punk Rock Compound
-      </div>
-    </div>
-    <!-- end of mobile logo -->
-
-    <!-- Menu Icon -->
+  <section>
+    <!-- top bar -->
     <div
-      @click="toggleMenu"
-      class="transition-all flex-grow justify-center flex flex-col items-end z-20"
+      class="main_page_padding_left_right main_red_background grid_half top-bar-min-height"
     >
-      <div
-        style="height: 3px"
-        class="menu w-8 bg-black"
-        :class="{ openOne: isOpen, close: !isOpen }"
-      ></div>
-      <div
-        style="height: 3px"
-        class="w-8 bg-black"
-        :class="{ openTwo: isOpen, close: !isOpen }"
-      ></div>
-      <div
-        style="height: 3px"
-        class="w-8 bg-black"
-        :class="{ openMid: isOpen }"
-      ></div>
+      <!-- mail icon with contact info -->
+      <div class="flex_row flex_align_center">
+        <div class="icon_margin_right mobile_display mail-icon-display">
+          <img class="icon-height" src="~/static/mail-icon-white.svg" />
+        </div>
+        <div>
+          <a
+            class="link_no_style"
+            href="mailto:contact@punkrockcompound.com?subject=Punk Rock Compound Header Link"
+          >
+            <p class="chedder main_white_text contact-text">
+              contact@punkrockcompound.com
+            </p>
+          </a>
+        </div>
+      </div>
+      <div class="flex_row flex_align_center flex_end_row">
+        <!-- add the instagram icon please -->
+        <a href="https://www.facebook.com/PunkRockCompoundChi">
+          <img class="icon-height" src="~/static/facebook-white-icon.svg" />
+        </a>
+        <a
+          href="https://www.youtube.com/channel/UCi7RTyhkRtjTu_8Z_v-9UbQ/videos"
+        >
+          <img
+            class="icon-height icon_margin_left"
+            src="~/static/youtube-white-icon.svg"
+          />
+        </a>
+      </div>
     </div>
-    <!-- end of menu icon -->
-
-    <!-- Mobile menu slide out  -->
-    <section
-      :class="{ modal: isOpen, closeMenu: !isOpen }"
-      class="flex flex-col justify-around items-center py-10 z-10"
-    >
-      <span @click="toggleMenu">
-        <nuxt-link to="/">
-          <p style="color: white">Home</p>
-        </nuxt-link>
-      </span>
-      <span @click="toggleMenu">
-        <nuxt-link :to="!bandId ? '/profile' : `/profile/${bandId}`">
-          <p style="color: white">Profile</p>
-        </nuxt-link>
-      </span>
-      <span @click="toggleMenu">
-        <nuxt-link :to="!bandId ? '/profile' : `/profile/${bandId}`">
-          <p style="color: white">Videos</p>
-        </nuxt-link>
-      </span>
-      <span @click="toggleMenu">
-        <nuxt-link :to="!bandId ? '/profile' : `/profile/${bandId}`">
-          <p style="color: white">Bands</p>
-        </nuxt-link>
-      </span>
-      <span @click="toggleMenu">
-        <nuxt-link to="/login">
-          <p style="color: white">Login/Signout</p>
-        </nuxt-link>
-      </span>
-    </section>
-
-    <!-- end of mobile menu slide out -->
-
-    <!-- this is a new componet the all bands view  -->
-  </div>
+    <!-- main bar -->
+    <div class="main_page_padding_left_right grid_half main-bar-container">
+      <!-- main logo -->
+      <NuxtLink to="/">
+        <img class="logo" src="~/static/logo-prc.svg" alt="" />
+      </NuxtLink>
+      <img class="menu" src="~/static/menu.svg" alt="" />
+    </div>
+  </section>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      isOpen: false,
-      bandId: null,
-    }
-  },
-  async updated() {
-    try {
-      const b = await this.$strapi.user
-      if (b && b.band) {
-        console.log(b, 'this is the user from the nav toggle menu')
-        if (typeof b.band === 'number') {
-          this.bandId = b.band
-        } else if (b.band.id) {
-          this.bandId = b.band.id
-        } else {
-          console.log('no band ')
-        }
-      }
-    } catch {
-      console.log('continue methods ')
-    }
-  },
-  methods: {
-    async toggleMenu() {
-      this.isOpen = !this.isOpen
-      try {
-        const b = await this.$strapi.user
-        if (b && b.band) {
-          console.log(b, 'this is the user from the nav toggle menu')
-          if (typeof b.band === 'number') {
-            this.bandId = b.band
-          } else if (b.band.id) {
-            this.bandId = b.band.id
-          } else {
-            console.log('no band ')
-          }
-        }
-      } catch {
-        console.log('continue methods ')
-      }
-    },
-    async logOutMethod() {
-      await this.$strapi.logout()
-      this.bandId = null
-      this.isOpen = !this.isOpen
-    },
-  },
-}
+export default {}
 </script>
-
 <style scoped>
-.bottom_box {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background: red;
-  color: black;
-  height: 60px;
-  width: 100vw;
-  z-index: -8;
+.top-bar-min-height {
+  min-height: 56px;
 }
-.blackTitle {
-  color: white;
+.icon-height {
+  height: 20px;
+  width: 20px;
 }
-.whiteTitle {
-  color: black;
+.logo {
+  height: 82px;
 }
-.modal {
-  transition: all;
-  transition-duration: 1s;
-  background-color: black;
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  left: 0;
-  top: 0;
-  opacity: 1;
+.contact-text {
+  font-size: inherit;
 }
-.openOne {
-  transition: all;
-  transition-duration: 500ms;
-  margin-bottom: -4px;
-  transform: rotate(45deg);
-  background-color: white;
+.main-bar-container {
+  height: 136px;
+  align-items: center;
 }
-.openTwo {
-  transition: all;
-  transition-duration: 500ms;
-  transform: rotate(-45deg);
-  background-color: white;
+.menu {
+  justify-self: self-end;
 }
-.close {
-  transition: all;
-  transition-duration: 500ms;
-  margin-bottom: 4px;
-  transform: rotate(0);
+@media (max-width: 360px) {
+  .contact-text {
+    font-size: 12px;
+  }
+  .icon-height {
+    height: 12px;
+    width: 12px;
+  }
 }
-.closeMenu {
-  transition: all;
-  transition-duration: 1s;
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-  left: -100vw;
-  top: 0;
-  opacity: 1;
-  z-index: -9;
-}
-.openMid {
-  display: none;
-}
-.shad {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+@media (max-width: 580px) {
+  .mail-icon-display {
+    display: none;
+  }
+
+  .main-bar-container {
+    grid-template-columns: 2fr 1fr;
+  }
 }
 </style>

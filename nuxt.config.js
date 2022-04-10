@@ -30,17 +30,13 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/typography.css',
     '@/assets/css/global.css',
     '@/assets/css/main.css',
     '@/assets/css/form.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    { src: '~/plugins/vue-carousel', mode: 'client' },
-    { src: '~/plugins/TiptapVuetify', mode: 'client' },
-  ],
+  plugins: [{ src: '~/plugins/vue-carousel', mode: 'client' }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -67,8 +63,6 @@ export default {
     // https://strapi.nuxtjs.org/
     '@nuxtjs/strapi',
     // https://openbase.com/js/@nuxtjs/markdownit/documentation
-    '@nuxtjs/markdownit',
-    '@nuxtjs/vuetify',
   ],
 
   markdownit: {
@@ -82,17 +76,13 @@ export default {
   axios: {},
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
-  pwa: {
-    manifest: {
-      lang: 'en',
-    },
-  },
+
   strapi: {
-    url: process.env.BACKEND_URL || 'http://localhost:1337',
+    url: process.env.BACKEND_URL || 'http://localhost:1337/api',
   },
   publicRuntimeConfig: {
     frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
-    backendUrl: process.env.BACKEND_URL || 'http://localhost:1337',
+    backendUrl: process.env.BACKEND_URL || 'http://localhost:1337/api',
     isDev: process.env.NODE_ENV === 'development' || false,
   },
   privateRuntimeConfig: {
@@ -104,6 +94,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: ['vuetify/lib', 'tiptap-vuetify'],
+    // transpile: ['vuetify/lib', 'tiptap-vuetify'],
   },
 }
