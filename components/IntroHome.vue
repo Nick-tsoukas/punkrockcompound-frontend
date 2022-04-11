@@ -1,19 +1,36 @@
 <template>
-  <div class="grid_half content_padding main-container">
+  <div class="grid_half main-container">
     <div>
       <NuxtLink :to="{ name: 'liveStream', params: { liveId: liveId } }">
         <div class="shadow-lg live-placeholder-container">
           <img class="image-height" src="~/static/live_background.png" alt="" />
-          <div class="live-image-bottom-bar"></div>
+          <div class="live-image-bottom-bar flex items-center pr-4">
+            <p class="chedder text-white pl-5 bottom-bar-text">
+              24/7 Live Stream
+            </p>
+            <div class="share">
+              <img class="share_btn" src="~/static/share.svg" alt="" />
+            </div>
+            <div class="play-btn-home">
+              <img class="play" src="~/static/play.svg" alt="" />
+            </div>
+          </div>
         </div>
       </NuxtLink>
     </div>
-    <div class="pl-10 flex flex-col">
-      <h1 class="title pb-4">{{ title }}</h1>
+    <div class="message-container flex flex-col">
+      <h1 class="title pb-10">{{ title }}</h1>
       <p class="message">{{ message }}</p>
+      <p class="hidden lg:block pt-4 message">
+        This is some more text about what the app provides for it's users
+      </p>
       <div class="flex flex-grow items-end pb-8 justify-around">
-        <button class="shadow-lg btn-home">Signup</button>
-        <button class="shadow-lg btn-home">Login</button>
+        <NuxtLink class="shadow-lg btn-home text-center" to="signUp"
+          >Signup</NuxtLink
+        >
+        <NuxtLink class="shadow-lg btn-home text-center" to="signUp"
+          >Login</NuxtLink
+        >
       </div>
     </div>
   </div>
@@ -46,11 +63,25 @@ export default {
 </script>
 
 <style scoped>
+/* stylelint-disable */
 .btn-home {
   padding: 1em;
   background: black;
   color: white;
   width: 40%;
+}
+
+.bottom-bar-text {
+  font-size: 28px;
+}
+.share {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+.play-btn-home {
+  margin-left: 1.3em;
 }
 .live-placeholder-container {
   position: relative;
@@ -70,7 +101,27 @@ export default {
 }
 .main-container {
   margin-bottom: 2em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
+
+.message-container {
+  padding-left: 2em;
+}
+@media (max-width: 740px) {
+  .bottom-bar-text {
+    font-size: 18px;
+  }
+
+  .play {
+    height: 20px;
+  }
+
+  .share_btn {
+    height: 20px;
+  }
+}
+
 @media (max-width: 740px) {
   .main-container {
     display: flex;
@@ -80,9 +131,12 @@ export default {
     text-align: center;
     margin-top: 2em;
   }
-
   .message {
     margin-bottom: 2em;
+  }
+  .message-container {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
   }
 }
 
@@ -117,6 +171,15 @@ export default {
 @media (min-width: 1340px) {
   .message {
     font-size: 22px;
+  }
+}
+@media (max-width: 300px) {
+  .message {
+    font-size: 22px;
+  }
+  .main-container {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 </style>

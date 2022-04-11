@@ -50,6 +50,7 @@
 export default {}
 </script>
 <style scoped>
+/* stylelint-disable */
 .top-bar-min-height {
   min-height: 56px;
 }

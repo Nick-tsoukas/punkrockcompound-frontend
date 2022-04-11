@@ -1,9 +1,10 @@
 <template>
   <section>
     <h1 class="main_page_padding_left_right">Live Stream</h1>
-    <div class="w-screen flex justify-center mb-10">
+    <div class="flex justify-center mb-10">
       <iframe
-        class="frame"
+        width="1280"
+        height="720"
         :src="`https://www.youtube.com/embed/${id}`"
         title="YouTube video player"
         frameborder="0"
@@ -29,35 +30,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.frame {
-  width: 90vw;
-  height: 400px;
-}
-
-.ytp-chrome-top .ytp-show-cards-title {
-  display: none;
-}
-
-@media (min-width: 870px) {
-  .frame {
-    width: 100vw;
-    height: 550px;
-    z-index: -999999;
-  }
-}
-@media (min-width: 1350px) {
-  .frame {
-    width: 100vw;
-    height: 500px;
-  }
-}
-
-@media (min-width: 1650px) {
-  .frame {
-    width: 100vw;
-    height: 800px;
-  }
-}
-</style>
