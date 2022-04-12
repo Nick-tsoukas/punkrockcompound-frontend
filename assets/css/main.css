@@ -62,9 +62,11 @@ html, body {
 
 /* typography */
 /* stylelint-disable */
-p{
+p, li {
   font-family: "ptmono";
 }
+
+
 h1,h2,h3,h4,h5,h6{
   font-family: "chedder";
 }
