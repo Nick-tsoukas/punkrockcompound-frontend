@@ -5,16 +5,7 @@
 </template>
 
 <script>
-export default {
-  // async asyncData({ $strapi }) {
-  //   const { data } = await $strapi.find('intro-home-page')
-  //   const { title, message } = data.attributes
-  //   return {
-  //     title,
-  //     message,
-  //   }
-  // },
-}
+export default {}
 </script>
 
 <style land="css" scoped>

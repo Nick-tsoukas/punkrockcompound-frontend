@@ -13,6 +13,7 @@
                 validation="required"
                 wrapper-class="m-auto sm:w-4/5 "
                 element-class="w-full"
+                errors-class="sm:w-4/5 m-auto"
               />
               <FormulateInput
                 name="email"
@@ -20,6 +21,7 @@
                 validation="required"
                 wrapper-class="m-auto sm:w-4/5 "
                 element-class="w-full"
+                errors-class="sm:w-4/5 m-auto"
               />
             </div>
             <div class="flex-grow mb-6">
@@ -29,6 +31,7 @@
                 validation="required"
                 wrapper-class="m-auto sm:w-4/5 "
                 element-class="w-full"
+                errors-class="sm:w-4/5 m-auto"
               />
               <FormulateInput
                 name="username"
@@ -36,6 +39,7 @@
                 validation="required"
                 wrapper-class="m-auto sm:w-4/5 "
                 element-class="w-full"
+                errors-class="sm:w-4/5 m-auto"
               />
               <FormulateInput
                 name="password"
@@ -43,6 +47,7 @@
                 validation="required"
                 wrapper-class="m-auto sm:w-4/5 "
                 element-class="w-full"
+                errors-class="sm:w-4/5 m-auto"
               />
             </div>
           </div>
@@ -82,6 +87,7 @@ export default {
           firstname: this.formValues.firstName,
           lastname: this.formValues.lastName,
         })
+
         if (user) {
           this.$router.push('bandcreate')
         }

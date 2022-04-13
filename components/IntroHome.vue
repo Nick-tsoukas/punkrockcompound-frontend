@@ -24,12 +24,27 @@
       <p class="hidden lg:block pt-4 message">
         This is some more text about what the app provides for it's users
       </p>
-      <div class="flex flex-grow items-end pb-8 justify-around">
+      <div
+        v-if="!$strapi.user"
+        class="flex flex-grow items-end pb-8 justify-around"
+      >
         <NuxtLink class="shadow-lg btn-home text-center" to="signUp"
           >Signup</NuxtLink
         >
-        <NuxtLink class="shadow-lg btn-home text-center" to="signUp"
+        <NuxtLink class="shadow-lg btn-home text-center" to="loginUser"
           >Login</NuxtLink
+        >
+      </div>
+      <div
+        v-if="$strapi.user"
+        class="flex flex-grow items-end pb-8 justify-around"
+      >
+        <NuxtLink class="shadow-lg btn-home text-center" to="/logout"
+          >Logout</NuxtLink
+        >
+        <!-- find a way to get user role to direct user to appropriate page -->
+        <NuxtLink class="shadow-lg btn-home text-center" to="loginUser"
+          >Admin</NuxtLink
         >
       </div>
     </div>

@@ -273,7 +273,9 @@
   line-height: 1.2em;
   margin: 0;
 }
-
+.formulate-input-group-add-more	{
+  color: red !important;
+}
 .formulate-input[data-classification='textarea'] textarea::-moz-placeholder {
   color: #a8a8a8;
   line-height: normal;
@@ -311,14 +313,18 @@
   font-weight: 400;
   line-height: 1.2em;
   margin: 0;
-  background-color: black;
   color: #fff;
   min-width: 0;
   width: auto;
   font-weight: 700;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
+  /* display: inline-flex;
+  align-items: center; */
+  width: 100%;
+  background: black;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 .formulate-input[data-classification='button'] button::-moz-placeholder {
@@ -348,7 +354,7 @@
 }
 
 .formulate-input[data-classification='button'] button[data-ghost] {
-  color: #41b883;
+  color: #C10609;
   background-color: transparent;
   border-color: currentColor;
 }
