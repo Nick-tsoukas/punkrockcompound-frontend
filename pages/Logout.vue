@@ -23,13 +23,12 @@ export default {
   },
   methods: {
     async logout() {
-      try {
-        const loggedOut = await this.$strapi.logout()
-        this.hasLoggedOut = true
-        return loggedOut
-      } catch (error) {
-        this.errorMessage = 'sorry we could not log you out'
-      }
+      const hasLoggedOut = await this.$strapi.logout()
+
+      this.hasLoggedOut = hasLoggedOut
+      this.$router.push({
+        path: `/`,
+      })
     },
   },
 }

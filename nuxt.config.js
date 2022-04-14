@@ -85,7 +85,7 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
 
   strapi: {
-    url: process.env.BACKEND_URL || 'http://localhost:1337/api',
+    url: process.env.BACKEND_URL || 'http://localhost:1337/',
     entities: ['bands'],
   },
   publicRuntimeConfig: {

@@ -67,7 +67,7 @@
           </div>
           <section class="px-4 mt-10 sm:m-10">
             <h2 class="text-2xl main_red_text mb-6">Add Band Members</h2>
-            <!-- <FormulateInput
+            <FormulateInput
               type="group"
               name="members"
               :repeatable="true"
@@ -81,7 +81,7 @@
                   required="true"
                 />
               </div>
-            </FormulateInput> -->
+            </FormulateInput>
           </section>
           <div>
             <FormulateInput
@@ -95,9 +95,6 @@
     </section>
     <pre>{{ band }}</pre>
     <pre>{{ $strapi.user }}</pre>
-    <h2>Form values</h2>
-    <pre>{{ errorMessage }}</pre>
-    <p>band here</p>
   </div>
 </template>
 
@@ -114,11 +111,14 @@ export default {
     async submitForm() {
       try {
         const band = await this.$strapi.create('bands', {
-          data: {
-            ...this.formValues,
-          },
+          ...this.formValues,
+          users_permissions_user: this.$strapi.user.id,
         })
         this.band = band
+        // this.$router.push({
+        //   path: `bandadmin`,
+        // })
+        // need to put this band in the store
       } catch (error) {
         this.errorMessage = 'Sorry ... please try again'
       }

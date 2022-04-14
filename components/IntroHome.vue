@@ -42,7 +42,6 @@
         <NuxtLink class="shadow-lg btn-home text-center" to="/logout"
           >Logout</NuxtLink
         >
-        <!-- find a way to get user role to direct user to appropriate page -->
         <NuxtLink class="shadow-lg btn-home text-center" to="loginUser"
           >Admin</NuxtLink
         >
@@ -64,9 +63,9 @@ export default {
     }
   },
   async mounted() {
-    const { data } = await this.$strapi.find('intro-home-page')
+    const data = await this.$strapi.find('intro-home-page')
     const { title, message, hasLiveStream, hasFeatVideo, liveId, videoId } =
-      data.attributes
+      data
     this.title = title
     this.message = message
     this.liveId = liveId
