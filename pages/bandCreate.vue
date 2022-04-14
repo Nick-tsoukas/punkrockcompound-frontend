@@ -93,8 +93,6 @@
         </FormulateForm>
       </div>
     </section>
-    <pre>{{ band }}</pre>
-    <pre>{{ $strapi.user }}</pre>
   </div>
 </template>
 
@@ -105,6 +103,7 @@ export default {
       formValues: {},
       errorMessage: '',
       band: null,
+      created: false,
     }
   },
   methods: {
@@ -115,12 +114,12 @@ export default {
           users_permissions_user: this.$strapi.user.id,
         })
         this.band = band
-        // this.$router.push({
-        //   path: `bandadmin`,
-        // })
-        // need to put this band in the store
       } catch (error) {
         this.errorMessage = 'Sorry ... please try again'
+      }
+      if (this.band) {
+        await this.$store.commit('setBand', this.band)
+        this.$router.push('/bandadmin')
       }
     },
   },

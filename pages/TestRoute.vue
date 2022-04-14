@@ -1,31 +1,21 @@
 <template>
   <div class="mb-20">
-    <h1 class="text-center" @click="getOne">one band</h1>
-    <h1 class="text-center" @click="getAllBands">all bands</h1>
-    <p>all bands</p>
-    <pre>{{ bands }}</pre>
-    <p>one band</p>
-    <pre>{{ band }}</pre>
-    <p>there should be a band here</p>
+    <h1>This is the test page for data store</h1>
+    <p @click="addUser">Add user</p>
+    {{ userData }}
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      band: '',
-      bands: [],
-    }
+  computed: {
+    userData() {
+      return this.$store.state.user
+    },
   },
   methods: {
-    async getOne() {
-      const band = await this.$strapi.find('bands', { bandName: 'Sublime' })
-      this.band = band
-    },
-    async getAllBands() {
-      const bands = await this.$strapi.find('bands')
-      this.bands = bands
+    addUser() {
+      this.$store.commit('setUser', 'jack')
     },
   },
 }
