@@ -41,13 +41,41 @@
       <NuxtLink to="/">
         <img class="logo" src="~/static/logo-prc.svg" alt="" />
       </NuxtLink>
-      <img class="menu" src="~/static/menu.svg" alt="" />
+      <img class="menu" src="~/static/menu.svg" alt="" @click="toggleMenu" />
     </div>
+    <section
+      class="z-50 flex flex-col justify-around items-center w-screen bg-red-500 fixed py-20 md:py-32 lg:py-40"
+      :class="isOpen ? 'h-[calc(100vh-192px)] ' : 'h-0'"
+      v-show="isOpen"
+    >
+      <NuxtLink to="/">Home</NuxtLink>
+      <NuxtLink to="/">Home</NuxtLink>
+      <NuxtLink to="/">Home</NuxtLink>
+      <NuxtLink to="/">Home</NuxtLink>
+      <NuxtLink to="/">Home</NuxtLink>
+    </section>
   </section>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      isOpen: false,
+    }
+  },
+  methods: {
+    toggleMenu() {
+      this.isOpen = !this.isOpen
+      const bodyElement = document.querySelectorAll('body')[0]
+      if (this.isOpen) {
+        bodyElement.style = 'overflow:hidden;'
+      } else {
+        bodyElement.style = ''
+      }
+    },
+  },
+}
 </script>
 <style scoped>
 /* stylelint-disable */
