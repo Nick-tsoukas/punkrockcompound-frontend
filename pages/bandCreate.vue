@@ -65,7 +65,7 @@
               />
             </div>
           </div>
-          <section class="px-4 mt-10 sm:m-10">
+          <section class="px-4 mt-10 sm:m-20">
             <h2 class="text-2xl main_red_text mb-6">Add Band Members</h2>
             <FormulateInput
               type="group"
@@ -73,23 +73,62 @@
               :repeatable="true"
               label="Band Members"
               add-label="+ Add members"
+              wrapper-class="w-full"
+              element-class="w-full"
             >
               <div>
                 <FormulateInput
                   name="name"
                   label="Add band member first and last name"
                   required="true"
+                  wrapper-class="w-full"
+                  element-class="w-full"
                 />
               </div>
             </FormulateInput>
+            <h2 class="text-center main_red_text text-2xl mb-10 mt-4">
+              Add Profile Image
+            </h2>
+            <div class="flex w-full justify-center">
+              <FormulateInput
+                type="image"
+                name="bandProfileImg"
+                label="Select an image to upload"
+                help="Select a png, jpg or gif to upload."
+                validation="mime:image/jpeg,image/png,image/gif"
+                input-class="w-full sm:w-96 "
+                wrapper-class="w-full sm:w-96 "
+                element-class="w-full sm:w-96 "
+                @change="profileImage = $event.target.files[0]"
+              />
+            </div>
+            <!-- <div v-if="image">
+              <img :src="image[0].url" alt="fdsfadsf" />
+            </div> -->
+            <h2 class="text-center main_red_text text-2xl mb-10 mt-4">
+              Add Band Bio
+            </h2>
+            <div class="flex w-full justify-center">
+              <FormulateInput
+                name="bandBio"
+                type="textarea"
+                label="Enter your band bio here"
+                input-class="w-full sm:w-96 h-72"
+                wrapper-class="w-full sm:w-96 h-72"
+                element-class="w-full sm:w-96 h-72"
+              />
+            </div>
           </section>
           <div>
             <FormulateInput
               type="submit"
               label="Next"
               wrapper-class="w-full mt-10 px-4 sm:mx-10"
+              grouping-class="bg-black"
+              element-class="w-full"
             />
           </div>
+          <pre>{{ image }}</pre>
         </FormulateForm>
       </div>
     </section>
@@ -104,10 +143,24 @@ export default {
       errorMessage: '',
       band: null,
       created: false,
+      profileImage: '',
+      image: '',
     }
   },
   methods: {
     async submitForm() {
+      // uploading bandProfileImg
+      try {
+        const formData = new FormData()
+        await formData.append('files', this.profileImage)
+        const [image] = await this.$strapi.create('upload', formData)
+        this.image = image
+        this.formValues.bandProfileImg = image
+      } catch (error) {
+        console.log(error)
+      }
+
+      // making post band to strapi
       try {
         const band = await this.$strapi.create('bands', {
           ...this.formValues,
@@ -117,6 +170,8 @@ export default {
       } catch (error) {
         this.errorMessage = 'Sorry ... please try again'
       }
+
+      // set band in store, route to bandadmin
       if (this.band) {
         await this.$store.commit('setBand', this.band)
         this.$router.push('/bandadmin')
