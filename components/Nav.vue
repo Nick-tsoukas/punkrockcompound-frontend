@@ -1,7 +1,9 @@
 <template>
   <section>
     <!-- top bar -->
-    <div class="main_page_padding_left_right grid_half top-bar-min-height">
+    <div
+      class="main_page_padding_left_right main_red_background grid_half top-bar-min-height"
+    >
       <!-- mail icon with contact info -->
       <div class="flex_row flex_align_center">
         <div class="icon_margin_right mobile_display mail-icon-display">

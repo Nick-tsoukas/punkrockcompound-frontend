@@ -2,7 +2,7 @@
   <div>
     <section v-if="band">
       <div
-        class="h-96 object-fill para relative"
+        class="h-96 object-fill para relative xl:h-[500px]"
         :style="{
           'background-image': `url(${band[0].bandProfileImg.url})`,
         }"
@@ -23,8 +23,8 @@
         </button>
       </div>
       <!-- Band Details Section -->
-      <section class="px-10 xl:px-72">
-        <h2 class="main_red_text text-center py-8">Band Details</h2>
+      <h2 class="main_red_text text-center py-8">Band Details</h2>
+      <section class="px-10 xl:px-72 extraLarge largeTop">
         <div class="md:flex">
           <div class="pr-32">
             <div class="pb-8">
@@ -141,18 +141,31 @@
           </div>
         </div>
       </section>
-      <section class="p-10">
-        <h2 class="main_text_red pb-10 px-20">Band Bio</h2>
-        <p class="text-lg">
-          {{ band[0].bio }}
-        </p>
-        <div class="lg:flex justify-center px-10">
+      <section class="p-10 bioPaddinglarge">
+        <h2
+          class="main_text_red pb-10 px-20 text-center md:text-left lg:px-56 xl:px-72"
+        >
+          Band Bio
+        </h2>
+        <div class="text-lg lg:px-56 xl:px-72">
+          <p v-for="(bandBio, index) in bio" :key="index" class="pb-4">
+            {{ bandBio }}
+          </p>
           <button
             class="text-center text-white w-full py-4 px-4 bg-black shadow-md mt-10 lg:w-60"
           >
-            Edit Profile Image
+            Edit Bio
+          </button>
+          <button
+            class="text-center text-white w-full py-4 px-4 mt-6 bg-black shadow-md mt-10 lg:w-60"
+          >
+            View Profile
           </button>
         </div>
+
+        <!-- <div class="lg:flex justify-center px-10"> -->
+
+        <!-- </div> -->
       </section>
     </section>
   </div>
@@ -167,6 +180,9 @@ export default {
     }
   },
   computed: {
+    bio() {
+      return this.band[0].bio.split('\n')
+    },
     adminName() {
       return (
         this.band[0].users_permissions_user.firstName +
@@ -201,5 +217,48 @@ export default {
 .padding-extra-large {
   padding-left: 20%;
   padding-right: 20%;
+}
+
+.extraLarge {
+  padding-left: 5em;
+  padding-right: 5em;
+}
+
+@media (min-width: 1700px) {
+  .extraLarge {
+    padding-left: 25em;
+    padding-right: 25em;
+  }
+
+  .bioPaddinglarge {
+    padding-left: 7em;
+    padding-right: 7em;
+  }
+}
+
+@media (min-width: 2200px) {
+  .bioPaddinglarge {
+    padding-left: 15em;
+    padding-right: 15em;
+  }
+  .largeTop {
+    margin-left: 8em;
+  }
+}
+@media (max-width: 450px) {
+  .bioPaddinglarge {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+  .extraLarge {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+}
+
+@media only screen and (max-width: 600px) and (min-width: 400px) {
+  .top-section-padding {
+    padding-left: 10em;
+  }
 }
 </style>
