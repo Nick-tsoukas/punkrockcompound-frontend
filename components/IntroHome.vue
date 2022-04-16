@@ -42,8 +42,8 @@
         <NuxtLink class="shadow-lg btn-home text-center" to="/logout"
           >Logout</NuxtLink
         >
-        <NuxtLink class="shadow-lg btn-home text-center" to="loginUser"
-          >Admin</NuxtLink
+        <NuxtLink class="shadow-lg btn-home text-center" to="bandadmin"
+          >Band Admin</NuxtLink
         >
       </div>
     </div>

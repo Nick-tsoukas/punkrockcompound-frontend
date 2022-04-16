@@ -1,32 +1,36 @@
 <template>
   <div>
     <section v-if="band">
-      <h2 class="main_red_text text-center pb-10">Band Details</h2>
       <div
         class="h-96 object-fill para relative"
         :style="{
           'background-image': `url(${band[0].bandProfileImg.url})`,
         }"
       >
-        <h2 class="main_red_text absolute bottom-10 left-10">
-          {{ band[0].bandName }}
-        </h2>
+        <div
+          class="absolute bottom-0 left-0 g-gradient-to-r from-black to-transparent h-auto w-full bg-gradient-to-bl"
+        >
+          <h2 class="main_red_text text-center">
+            {{ band[0].bandName }}
+          </h2>
+        </div>
       </div>
-      <button
-        class="text-center text-white w-full py-4 px-4 bg-black shadow-md mt-10"
-      >
-        Edit Profile Image
-      </button>
-
+      <div class="lg:flex justify-center px-10">
+        <button
+          class="text-center text-white w-full py-4 px-4 bg-black shadow-md mt-10 lg:w-60"
+        >
+          Edit Profile Image
+        </button>
+      </div>
       <!-- Band Details Section -->
-      <section class="pl-10">
+      <section class="px-10 xl:px-72">
         <h2 class="main_red_text text-center py-8">Band Details</h2>
         <div class="md:flex">
           <div class="pr-32">
             <div class="pb-8">
-              <h3 class="main_red_text text-2xl">Admin Name</h3>
+              <h3 class="main_red_text text-2xl">Band Name</h3>
               <div class="flex items-center">
-                <p class="text-xl pr-4">{{ adminName }}</p>
+                <p class="text-xl pr-4">{{ band[0].bandName }}</p>
                 <img class="h-4" src="~/static/edit.svg" alt="" />
               </div>
             </div>
@@ -40,10 +44,10 @@
               </div>
             </div>
             <div class="pb-8">
-              <h3 class="main_red_text text-2xl">Band Name</h3>
+              <h3 class="main_red_text text-2xl">Admin Name</h3>
               <div class="flex items-center">
                 <p class="text-xl pr-4">
-                  {{ band[0].bandName }}
+                  {{ band[0].users_permissions_user.username }}
                 </p>
                 <img class="h-4" src="~/static/edit.svg" alt="" />
               </div>
@@ -97,17 +101,60 @@
               </div>
             </div>
           </div>
-          <div class="md:hidden lg:flex flex-col">
-            <h2>Add Albums</h2>
-            <h2>Add Albums</h2>
-            <h2>Add Albums</h2>
-            <h2>Add Albums</h2>
+          <div class="lg:flex flex-col items-center w-full">
+            <div class="flex">
+              <p
+                style="width: 100px"
+                class="chedder main_red_text text-2xl mr-12 mb-4"
+              >
+                Add Album
+              </p>
+              <img class="h-8" src="~/static/add.svg" alt="" />
+            </div>
+            <div class="flex">
+              <p
+                style="width: 100px"
+                class="chedder main_red_text text-2xl mr-12 mb-4"
+              >
+                Add Singles
+              </p>
+              <img class="h-8" src="~/static/add.svg" alt="" />
+            </div>
+            <div class="flex">
+              <p
+                style="width: 100px"
+                class="chedder main_red_text text-2xl mr-12 mb-4"
+              >
+                Add Videos
+              </p>
+              <img class="h-8" src="~/static/add.svg" alt="" />
+            </div>
+            <div class="flex">
+              <p
+                style="width: 100px"
+                class="chedder main_red_text text-2xl mr-12 mb-4"
+              >
+                Add Events
+              </p>
+              <img class="h-8" src="~/static/add.svg" alt="" />
+            </div>
           </div>
         </div>
       </section>
+      <section class="p-10">
+        <h2 class="main_text_red pb-10 px-20">Band Bio</h2>
+        <p class="text-lg">
+          {{ band[0].bio }}
+        </p>
+        <div class="lg:flex justify-center px-10">
+          <button
+            class="text-center text-white w-full py-4 px-4 bg-black shadow-md mt-10 lg:w-60"
+          >
+            Edit Profile Image
+          </button>
+        </div>
+      </section>
     </section>
-
-    <!-- <pre>{{ band }}</pre> -->
   </div>
 </template>
 
@@ -149,5 +196,10 @@ export default {
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.padding-extra-large {
+  padding-left: 20%;
+  padding-right: 20%;
 }
 </style>

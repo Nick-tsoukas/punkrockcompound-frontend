@@ -1,9 +1,7 @@
 <template>
   <section>
     <!-- top bar -->
-    <div
-      class="main_page_padding_left_right main_red_background grid_half top-bar-min-height"
-    >
+    <div class="main_page_padding_left_right grid_half top-bar-min-height">
       <!-- mail icon with contact info -->
       <div class="flex_row flex_align_center">
         <div class="icon_margin_right mobile_display mail-icon-display">
@@ -44,15 +42,43 @@
       <img class="menu" src="~/static/menu.svg" alt="" @click="toggleMenu" />
     </div>
     <section
-      class="z-50 flex flex-col justify-around items-center w-screen bg-red-500 fixed py-20 md:py-32 lg:py-40"
-      :class="isOpen ? 'h-[calc(100vh-192px)] ' : 'h-0'"
       v-show="isOpen"
+      class="z-20 flex flex-col justify-around items-center w-screen bg-red-500 fixed py-20 md:py-32 lg:py-40"
+      :class="isOpen ? 'h-[calc(100vh-192px)] ' : 'h-0'"
     >
-      <NuxtLink to="/">Home</NuxtLink>
-      <NuxtLink to="/">Home</NuxtLink>
-      <NuxtLink to="/">Home</NuxtLink>
-      <NuxtLink to="/">Home</NuxtLink>
-      <NuxtLink to="/">Home</NuxtLink>
+      <div @click="toggleMenu">
+        <NuxtLink class="chedder text-2xl" to="/">Home</NuxtLink>
+      </div>
+      <div v-if="$strapi.user">
+        <NuxtLink class="text2xl chedder" to="/bandadmin" @click="toggleMenu"
+          >Band Admin</NuxtLink
+        >
+      </div>
+      <div @click="toggleMenu">
+        <NuxtLink class="chedder text-2xl" to="/videos">Videos</NuxtLink>
+      </div>
+      <div @click="toggleMenu">
+        <NuxtLink class="chedder text-2xl" to="/events" @click="toggleMenu"
+          >Events</NuxtLink
+        >
+      </div>
+      <div v-if="$strapi.user">
+        <div @click="toggleMenu">
+          <NuxtLink class="chedder text-2xl" to="/logout" @click="toggleMenu"
+            >Logout</NuxtLink
+          >
+        </div>
+      </div>
+      <div v-if="!$strapi.uer" @click="toggleMenu">
+        <NuxtLink class="chedder text-2xl" to="/signup" @click="toggleMenu"
+          >signup</NuxtLink
+        >
+      </div>
+      <div v-if="!$strapi.uer" @click="toggleMenu">
+        <NuxtLink class="chedder text-2xl" to="/loginuser" @click="toggleMenu"
+          >Sign In</NuxtLink
+        >
+      </div>
     </section>
   </section>
 </template>
