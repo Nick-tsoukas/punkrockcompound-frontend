@@ -1,6 +1,7 @@
 <template>
   <div>
     <div
+      v-if="band"
       class="object-fill para relative h-[calc(100vh-192px)]"
       :style="{
         'background-image': `url(${band.bandProfileImg.url})`,
@@ -40,7 +41,6 @@
     <section>
       <div class="w-full sm:3/6 bg-red-400 h-46"></div>
     </section>
-    <!-- <pre>{{ band }}</pre> -->
   </div>
 </template>
 
@@ -53,6 +53,11 @@ export default {
       hide: false,
     }
   },
+  data() {
+    return {
+      band: '',
+    }
+  },
   computed: {
     bio() {
       return this.band.bio.split('\n')
@@ -63,6 +68,9 @@ export default {
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
+  },
+  async mounted() {
+    this.band = await this.$strapi.findOne('bands', this.$route.params.id)
   },
 
   beforeDestroy() {

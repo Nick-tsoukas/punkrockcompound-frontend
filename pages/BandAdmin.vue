@@ -23,7 +23,7 @@
         </button>
       </div>
       <!-- Band Details Section -->
-      <h2 class="main_red_text text-center py-8">Band Details</h2>
+      <h2 class="main_red_text text-center py-8 mb-10">Band Details</h2>
       <section class="px-10 xl:px-72 extraLarge largeTop">
         <div class="md:flex">
           <div class="pr-32">
@@ -157,6 +157,7 @@
             Edit Bio
           </button>
           <button
+            @click="viewProfile"
             class="text-center text-white w-full py-4 px-4 mt-6 bg-black shadow-md mt-10 lg:w-60"
           >
             View Profile
@@ -201,6 +202,12 @@ export default {
         users_permissions_user: this.$strapi.user.id,
       })
     }
+  },
+
+  methods: {
+    viewProfile() {
+      this.$router.push(`bandprofile/${this.band[0].id}`)
+    },
   },
 }
 </script>

@@ -51,10 +51,8 @@
       <div @click="toggleMenu">
         <NuxtLink class="chedder text-2xl" to="/">Home</NuxtLink>
       </div>
-      <div v-if="$strapi.user">
-        <NuxtLink class="text2xl chedder" to="/bandadmin" @click="toggleMenu"
-          >Band Admin</NuxtLink
-        >
+      <div v-if="$strapi.user" @click="toggleMenu">
+        <NuxtLink class="text-2xl chedder" to="/bandadmin">Band Admin</NuxtLink>
       </div>
       <div @click="toggleMenu">
         <NuxtLink class="chedder text-2xl" to="/videos">Videos</NuxtLink>
