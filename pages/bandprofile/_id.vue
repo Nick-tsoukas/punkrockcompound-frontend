@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div v-if="band">
     <div
-      v-if="band"
       class="object-fill para relative h-[calc(100vh-192px)]"
       :style="{
         'background-image': `url(${band.bandProfileImg.url})`,
