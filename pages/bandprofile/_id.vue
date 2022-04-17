@@ -45,14 +45,14 @@
 
 <script>
 export default {
-  // async asyncData({ $strapi, params }) {
-  //   console.log('parmas from async data', params.id)
-  //   const band = await $strapi.findOne('bands', params.id)
-  //   return {
-  //     band,
-  //     hide: false,
-  //   }
-  // },
+  async asyncData({ $strapi, params }) {
+    console.log('parmas from async data', params.id)
+    const band = await $strapi.findOne('bands', params.id)
+    return {
+      band,
+      hide: false,
+    }
+  },
   data() {
     return {
       band: '',
@@ -69,10 +69,10 @@ export default {
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
   },
-  mounted() {
+  async mounted() {
     console.log('mounted', this.$route.params.id)
-    // const id = await this.$route.params.id
-    // this.band = await this.$strapi.findOne('bands', id)
+    const id = await this.$route.params.id
+    this.band = await this.$strapi.findOne('bands', id)
   },
 
   beforeDestroy() {
