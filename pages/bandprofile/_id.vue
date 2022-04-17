@@ -47,7 +47,7 @@
 <script>
 export default {
   async asyncData({ $strapi, params }) {
-    console.log('parmas', params.id)
+    console.log('parmas from async data', params.id)
     const band = await $strapi.findOne('bands', params.id)
     return {
       band,
