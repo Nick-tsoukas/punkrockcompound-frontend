@@ -47,6 +47,7 @@
 <script>
 export default {
   async asyncData({ $strapi, params }) {
+    console.log('parmas', params.id)
     const band = await $strapi.findOne('bands', params.id)
     return {
       band,
@@ -70,6 +71,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
   },
   async mounted() {
+    console.log('mounted', this.$route.params.id)
     this.band = await this.$strapi.findOne('bands', this.$route.params.id)
   },
 
