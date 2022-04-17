@@ -69,11 +69,11 @@ export default {
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
   },
-  // async mounted() {
-  //   console.log('mounted', this.$route.params.id)
-  //   const id = await this.$route.params.id
-  //   this.band = await this.$strapi.findOne('bands', id)
-  // },
+  mounted() {
+    console.log('mounted', this.$route.params.id)
+    // const id = await this.$route.params.id
+    // this.band = await this.$strapi.findOne('bands', id)
+  },
 
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
