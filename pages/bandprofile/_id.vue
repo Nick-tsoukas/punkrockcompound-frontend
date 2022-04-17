@@ -71,7 +71,8 @@ export default {
   },
   async mounted() {
     console.log('mounted', this.$route.params.id)
-    this.band = await this.$strapi.findOne('bands', this.$route.params.id)
+    const id = await this.$route.params.id
+    this.band = await this.$strapi.findOne('bands', id)
   },
 
   beforeDestroy() {
