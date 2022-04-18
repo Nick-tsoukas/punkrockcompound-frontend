@@ -1,13 +1,15 @@
 <template>
   <div v-if="band">
     <div
+      style="z-index: -99999999"
       class="object-fill para relative h-[calc(100vh-192px)]"
       :style="{
         'background-image': `url(${band.bandProfileImg.url})`,
       }"
     >
       <div
-        class="w-full absolute bottom-0 left-0 h-40 m-auto transition-all duration-500"
+        :class="load ? 'bottom-20' : 'bottom-0'"
+        class="w-full absolute left-0 h-40 mx-auto transition-all duration-500"
       >
         <div
           :class="!hide ? '' : 'bg-opacity-80'"
@@ -17,7 +19,7 @@
             {{ band.bandName }}
           </h1>
           <div
-            :class="!hide ? '' : 'opacity-0 hidden'"
+            :class="!hide ? '' : 'opacity-0 ß'"
             class="flex transition-all duration-1000"
           >
             <img src="~/static/red.svg" alt="" />
@@ -25,20 +27,53 @@
         </div>
       </div>
     </div>
-    <section class="mx-auto w-full">
+    <section class="mx-auto w-full z-50">
       <div
-        class="w-11/12 sm:w-3/4 xl:w-1/2 bg-black px-16 py-10 mx-auto transition-all duration-500"
+        :class="load ? '-mt-24' : 'mt-0'"
+        class="w-11/12 sm:w-3/4 xl:w-1/2 bg-black px-16 py-10 mx-auto transition-all duration-500 z-50"
       >
-        <h2 class="text-white">BIO</h2>
-        <div>
+        <h2 class="text-white text-4xl mb-14">BIO</h2>
+        <div class="pb-24">
           <p v-for="(para, index) in bio" :key="index" class="text-white mb-4">
             {{ para }}
           </p>
         </div>
       </div>
     </section>
-    <section>
-      <div class="w-full sm:3/6 bg-red-400 h-46"></div>
+    <section class="w-11/12 sm:w-3/4 xl:w-1/2 mx-auto mt-6 px-14">
+      <h1 class="mb-6">Band Details</h1>
+      <div class="flex flex-col sm:flex-row items-center mb-4">
+        <!-- col one of details  -->
+        <div class="w-full mb-6 sm:w-3/4 my-auto flex">
+          <div class="w-full">
+            <h2 class="text-3xl chedder main_red_text">Genre</h2>
+            <p>{{ band.genre }}</p>
+          </div>
+        </div>
+        <!-- col two of details  -->
+        <div class="w-full mb-6 sm:w-3/4 flex">
+          <div class="w-full">
+            <h2 class="text-3xl chedder main_red_text">HomeTown</h2>
+            <p>{{ band.city }}, {{ band.state }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center mb-4">
+        <!-- col one of details  -->
+        <div class="w-full sm:w-3/4 flex">
+          <div class="w-full mb-6">
+            <h2 class="text-3xl chedder main_red_text">Manager</h2>
+            <p>{{ band.bandManager }}</p>
+          </div>
+        </div>
+        <!-- col two of details  -->
+        <div class="w-full sm:w-3/4 flex">
+          <div class="w-full mb-6">
+            <h2 class="text-3xl chedder main_red_text">Record Label</h2>
+            <p>{{ band.recordLabel }}</p>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -56,6 +91,7 @@ export default {
   data() {
     return {
       band: '',
+      load: false,
     }
   },
   computed: {
@@ -84,7 +120,18 @@ export default {
       // Your scroll handling here
       if (window.scrollY > 170) {
         this.hide = true
+        this.load = true
       }
+
+      if (window.scrollY > 10) {
+        this.load = true
+      }
+      if (window.scrollY < 4) {
+        this.load = false
+      }
+    },
+    togClass() {
+      this.load = false
     },
   },
 }
