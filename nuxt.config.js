@@ -1,6 +1,5 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'server',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'punkrockcompound-frontend',
@@ -25,6 +24,10 @@ export default {
         href: 'https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.min.css',
       },
     ],
+  },
+
+  generate: {
+    routes: ['/bandadmin', '/bandprofile/2'],
   },
 
   watchers: {

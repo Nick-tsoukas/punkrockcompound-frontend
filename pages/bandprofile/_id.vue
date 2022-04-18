@@ -74,7 +74,30 @@
           </div>
         </div>
       </div>
+
+      <div class="flex flex-col sm:flex-row items-center mb-4">
+        <!-- col one of details  -->
+        <!-- col two of details  -->
+        <div class="w-full sm:w-3/4 flex">
+          <div class="w-full mb-6">
+            <h2 class="text-3xl chedder main_red_text">Members</h2>
+            <span
+              class="mr-4"
+              v-for="(member, index) in band.members"
+              :key="index + member.id"
+              >{{ member.name }}</span
+            >
+          </div>
+        </div>
+        <div class="w-full sm:w-3/4 flex">
+          <div class="w-full mb-6">
+            <h2 class="text-3xl chedder main_red_text">Band Email</h2>
+            <p>{{ band.bandEmail }}</p>
+          </div>
+        </div>
+      </div>
     </section>
+    <pre>{{ band }}</pre>
   </div>
 </template>
 
