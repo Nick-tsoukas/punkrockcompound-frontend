@@ -1,6 +1,7 @@
 <template>
   <div
-    class="transition-all duration-1000 flex gap-20 flex-nowrap overflow-y-scroll grab scroll"
+    id="main-container"
+    class="transition-all duration-1000 ml-0 flex gap-12 flex-nowrap overflow-y-scroll grab scroll"
   >
     <slot></slot>
   </div>
@@ -35,6 +36,15 @@ export default {
       const walk = x - startX
       slider.scrollLeft = scrollLeft - walk
     })
+    const observer = new IntersectionObserver(
+      function (entries) {
+        if (entries[0].isIntersecting === true)
+          entries[0].target.classList.add('slide')
+      },
+      { threshold: [1] }
+    )
+
+    observer.observe(document.querySelector('#main-container'))
   },
 }
 </script>

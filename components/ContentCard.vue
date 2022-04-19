@@ -36,7 +36,7 @@ export default {
   background-size: cover;
   object-fit: fill;
   min-width: 300px;
-  height: 300px;
+  height: 400px;
 }
 
 @media (min-width: 1000px) {

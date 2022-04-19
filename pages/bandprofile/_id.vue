@@ -134,6 +134,7 @@ export default {
   },
   async mounted() {
     try {
+      console.log(this.$route.params)
       const id = await this.$route.params.id
       this.band = await this.$strapi.findOne('bands', id)
     } catch (error) {

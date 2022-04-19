@@ -7,63 +7,50 @@
       <div
         class="flex flex-col md:flex md:flex-row gap-y-12 justify-around items-center"
       >
-        <AlbumCard title="Cool Collection" />
-        <AlbumCard title="Cool Collection" />
-        <AlbumCard title="Cool Collection" />
+        <ContentCard title="Cool Collection" />
+        <ContentCard title="Cool Collection" />
+        <ContentCard title="Cool Collection" />
       </div>
     </section>
-    <!-- all bands -->
-    <section class="h-auto">
-      <h1 class="main_red_text my-12 px-10">All Bands</h1>
-      <SliderContainer v-if="bands" id="main-container" class="py-10 h-[400px]">
-        <AlbumCard
+    <h1 class="main_red_text my-12 px-10">All Bands</h1>
+    <section class="h-auto relative py-24 mb-20">
+      <div
+        class="bg-black w-46 h-full absolute left-0 z-50 bg-opacity-70 flex justify-center items-center w-36 top-0"
+      >
+        <p class="text-2xl font-bold main_red_text rotate-180">></p>
+      </div>
+      <SliderContainer id="main-container" class="py-10">
+        <NuxtLink
           v-for="(band, index) in bands"
           :key="index"
-          :title="band.bandName"
-        />
+          :to="'bandprofile/' + band.id"
+        >
+          <ContentCard :title="band.bandName" />
+        </NuxtLink>
       </SliderContainer>
-      <!-- album slider  -->
-    </section>
-    <section class="h-auto">
-      <h1 class="main_red_text my-12 px-10">Albums</h1>
-      <SliderContainer id="main-container-two" class="py-10 h-[400px]">
-        <AlbumCard title="Cool Collection" />
-        <AlbumCard title="Cool Collection" />
-        <AlbumCard title="Cool Collection" />
-        <AlbumCard title="Cool Collection" />
-      </SliderContainer>
-    </section>
-    <!-- Video slider section  -->
-    <section class="h-auto">
-      <h1 class="main_red_text my-12 px-10">Videos</h1>
-      <SliderContainer id="main-container-two" class="py-10 h-[400px]">
-        <AlbumCard title="Cool Collection" />
-        <AlbumCard title="Cool Collection" />
-        <AlbumCard title="Cool Collection" />
-        <AlbumCard title="Cool Collection" />
-        <AlbumCard title="Cool Collection" />
-      </SliderContainer>
-    </section>
-    <section>
-      <h2></h2>
+      <div
+        class="bg-black bg-opacity-70 w-46 h-full absolute right-0 z-50 flex justify-center items-center top-0 w-36"
+      >
+        <p class="text-2xl font-bold main_red_text">></p>
+      </div>
     </section>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      bands: [],
-    }
-  },
-  async mounted() {
+  async asyncData({ $strapi }) {
     try {
-      const bands = await this.$strapi.find('bands')
-      this.bands = bands
+      const bands = await $strapi.find('bands')
+      return {
+        bands,
+      }
     } catch (error) {
       console.log(error)
     }
+  },
+
+  mounted() {
     const slider = document.querySelector('.scroll')
     let isDown = false
     let startX
@@ -99,7 +86,6 @@ export default {
     )
 
     observer.observe(document.querySelector('#main-container'))
-    observer.observe(document.querySelector('#main-container-two'))
   },
 }
 </script>
