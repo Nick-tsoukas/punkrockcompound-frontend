@@ -82,9 +82,9 @@
           <div class="w-full mb-6">
             <h2 class="text-3xl chedder main_red_text">Members</h2>
             <span
-              class="mr-4"
               v-for="(member, index) in band.members"
               :key="index + member.id"
+              class="mr-4"
               >{{ member.name }}</span
             >
           </div>
@@ -103,14 +103,18 @@
 
 <script>
 export default {
-  async asyncData({ $strapi, params }) {
-    console.log('parmas from async data', params.id)
-    const band = await $strapi.findOne('bands', params.id)
-    return {
-      band,
-      hide: false,
-    }
-  },
+  // async asyncData({ $strapi, params }) {
+  //   console.log('parmas from async data', params.id)
+  //   try {
+  //     const band = await $strapi.findOne('bands', params.id)
+  //     return {
+  //       band,
+  //       hide: false,
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // },
   data() {
     return {
       band: '',
@@ -129,9 +133,12 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
   },
   async mounted() {
-    console.log('mounted', this.$route.params.id)
-    const id = await this.$route.params.id
-    this.band = await this.$strapi.findOne('bands', id)
+    try {
+      const id = await this.$route.params.id
+      this.band = await this.$strapi.findOne('bands', id)
+    } catch (error) {
+      console.log(error)
+    }
   },
 
   beforeDestroy() {

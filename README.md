@@ -1,6 +1,16 @@
 ### `notes`
 
-- [] Make admin editable
+### band profile page
+
+- [] add more albums to all bands
+- [] build album slider
+
+### Home page
+
+- [] build featured band component
 - [] build band slider
-- [] Add links to nav bar
-  - [] make home logo emit event to nav bar to close nav open isOpen
+- [] video slider
+- [] event component
+- [] add album slider on home page
+
+- [] fix production
