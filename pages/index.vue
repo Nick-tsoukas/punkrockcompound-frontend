@@ -7,9 +7,15 @@
       <div
         class="flex flex-col md:flex md:flex-row gap-y-12 justify-around items-center"
       >
-        <ContentCard title="Cool Collection" />
-        <ContentCard title="Cool Collection" />
-        <ContentCard title="Cool Collection" />
+        <NuxtLink :to="'bandprofile/1'">
+          <ContentCard title="Fire" />
+        </NuxtLink>
+        <NuxtLink :to="'bandprofile/2'">
+          <ContentCard title="Earth" />
+        </NuxtLink>
+        <NuxtLink :to="'bandprofile/3'">
+          <ContentCard title="Lantern" />
+        </NuxtLink>
       </div>
     </section>
     <h1 class="main_red_text my-12 px-10">All Bands</h1>

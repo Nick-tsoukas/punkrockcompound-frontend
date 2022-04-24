@@ -97,7 +97,7 @@
         </div>
       </div>
     </section>
-    <pre>{{ band }}</pre>
+    <!-- <pre>{{ band }}</pre> -->
   </div>
 </template>
 
