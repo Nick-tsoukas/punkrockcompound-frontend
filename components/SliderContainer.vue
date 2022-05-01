@@ -1,7 +1,7 @@
 <template>
   <div
     id="main-container"
-    class="transition-all duration-1000 ml-0 flex gap-12 flex-nowrap overflow-y-scroll grab scroll"
+    class="transition-all duration-1000 ml-0 flex gap-12 flex-nowrap overflow-y-scroll scroll"
   >
     <slot></slot>
   </div>
@@ -25,8 +25,9 @@ export default {
       isDown = false
       slider.classList.remove('active')
     })
-    slider.addEventListener('mouseup', () => {
+    slider.addEventListener('mouseup', (e) => {
       isDown = false
+      console.log('event: mouseup')
       slider.classList.remove('active')
     })
     slider.addEventListener('mousemove', (e) => {
@@ -36,6 +37,7 @@ export default {
       const walk = x - startX
       slider.scrollLeft = scrollLeft - walk
     })
+    // add animation when scrolled into view
     const observer = new IntersectionObserver(
       function (entries) {
         if (entries[0].isIntersecting === true)
@@ -54,24 +56,7 @@ export default {
   box-sizing: border-box;
 }
 
-.box {
-  min-width: 300px;
-  height: 300px;
-  margin: 3em;
-  background: red;
-}
-
-.slide {
-  margin-left: -150px;
-}
-
-.swipe-container {
-  overflow-y: scroll;
-  display: flex;
-  flex-wrap: nowrap;
-}
-
-.grab {
-  cursor: grab;
+.active {
+  background: blue;
 }
 </style>

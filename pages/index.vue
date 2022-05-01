@@ -20,12 +20,30 @@
     </section>
     <h1 class="main_red_text my-12 px-10">All Bands</h1>
     <section class="h-auto relative py-24 mb-20">
-      <div
+      <!-- swiper box black -->
+      <!-- <div
         class="bg-black w-46 h-full absolute left-0 z-50 bg-opacity-70 flex justify-center items-center w-36 top-0"
       >
         <p class="text-2xl font-bold main_red_text rotate-180">></p>
-      </div>
+      </div> -->
       <SliderContainer id="main-container" class="py-10">
+        <ContentCard
+          v-for="(band, index) in bands"
+          :key="index"
+          :to="'bandprofile/' + band.id"
+          :title="band.bandName"
+        />
+      </SliderContainer>
+      <!-- swiper box black -->
+      <!-- <div
+        class="bg-black bg-opacity-70 w-46 h-full absolute right-0 z-50 flex justify-center items-center top-0 w-36"
+      >
+        <p class="text-2xl font-bold main_red_text">></p>
+      </div> -->
+    </section>
+    <h1 class="main_red_text my-12 px-10">All Videos</h1>
+    <section class="h-auto relative py-24 mb-20">
+      <SliderContainer id="video-container" class="py-10">
         <NuxtLink
           v-for="(band, index) in bands"
           :key="index"
@@ -34,11 +52,11 @@
           <ContentCard :title="band.bandName" />
         </NuxtLink>
       </SliderContainer>
-      <div
-        class="bg-black bg-opacity-70 w-46 h-full absolute right-0 z-50 flex justify-center items-center top-0 w-36"
-      >
-        <p class="text-2xl font-bold main_red_text">></p>
-      </div>
+    </section>
+    <!-- The event section  -->
+    <h1 class="main_red_text my-12 px-10">Featured Event</h1>
+    <section class="h-auto relative py-24 mb-20 px-10">
+      <h2>This is where we will display the events</h2>
     </section>
   </div>
 </template>
@@ -57,32 +75,6 @@ export default {
   },
 
   mounted() {
-    const slider = document.querySelector('.scroll')
-    let isDown = false
-    let startX
-    let scrollLeft
-
-    slider.addEventListener('mousedown', (e) => {
-      isDown = true
-      slider.classList.add('active')
-      startX = e.pageX - slider.offsetLeft
-      scrollLeft = slider.scrollLeft
-    })
-    slider.addEventListener('mouseleave', () => {
-      isDown = false
-      slider.classList.remove('active')
-    })
-    slider.addEventListener('mouseup', () => {
-      isDown = false
-      slider.classList.remove('active')
-    })
-    slider.addEventListener('mousemove', (e) => {
-      if (!isDown) return
-      e.preventDefault()
-      const x = e.pageX - slider.offsetLeft
-      const walk = x - startX
-      slider.scrollLeft = scrollLeft - walk
-    })
     const observer = new IntersectionObserver(
       function (entries) {
         if (entries[0].isIntersecting === true)
@@ -92,6 +84,7 @@ export default {
     )
 
     observer.observe(document.querySelector('#main-container'))
+    observer.observe(document.querySelector('#video-container'))
   },
 }
 </script>
@@ -110,15 +103,5 @@ export default {
 
 .slide {
   margin-left: -150px;
-}
-
-.swipe-container {
-  overflow-y: scroll;
-  display: flex;
-  flex-wrap: nowrap;
-}
-
-.grab {
-  cursor: grab;
 }
 </style>
