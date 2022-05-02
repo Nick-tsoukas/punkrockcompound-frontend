@@ -9,7 +9,6 @@
       <h2 class="text-2xl text-white">{{ title }}</h2>
       <NuxtLink class="outline-button" :to="'bandprofile/' + bandId">
         <p class="text-white">View Profile</p>
-        {{ bandId }}
       </NuxtLink>
     </div>
   </div>

@@ -71,6 +71,7 @@
     <section class="h-auto relative py-24 mb-20 px-10">
       <h2>This is where we will display the events</h2>
     </section>
+    <pre>{{ animationCounter }}</pre>
   </div>
 </template>
 
@@ -88,11 +89,29 @@ export default {
   },
 
   mounted() {
+    let animationComplete = false
+    let animationCounter = 0
+    let counter = 0
     const observer = new IntersectionObserver(
       function (entries) {
-        if (entries[0].isIntersecting === true)
-          entries[0].target.classList.add('slide')
+        if (entries[0].isIntersecting === true && animationComplete === false) {
+          const animationTimer = setInterval(() => {
+            counter = counter + 2
+
+            entries[0].target.scrollLeft = counter
+            if (counter > 100) {
+              counter = 0
+              if (animationCounter === 1) {
+                animationComplete = true
+                return clearInterval(animationTimer)
+              }
+              this.animationCounter = animationCounter++
+              return clearInterval(animationTimer)
+            }
+          }, 2)
+        }
       },
+
       { threshold: [1] }
     )
     if (
@@ -116,10 +135,6 @@ export default {
   height: 300px;
   margin: 3em;
   background: red;
-}
-
-.slide {
-  margin-left: -150px;
 }
 
 .active {
