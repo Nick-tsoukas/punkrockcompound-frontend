@@ -4,9 +4,13 @@
     style="background-image: url('user_profile.png')"
   >
     <div
-      class="flex justify-center items-center bg-black absolute bottom-0 w-full"
+      class="flex justify-between items-center bg-black absolute bottom-0 w-full px-4 py-8"
     >
       <h2 class="text-2xl text-white">{{ title }}</h2>
+      <NuxtLink class="outline-button" :to="'bandprofile/' + bandId">
+        <p class="text-white">View Profile</p>
+        {{ bandId }}
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -18,9 +22,9 @@ export default {
       type: String,
       default: 'Cool Album',
     },
-    albumId: {
-      type: String || Number,
-      default: '1',
+    bandId: {
+      type: Number,
+      default: 1,
     },
     albumImg: {
       type: String,
@@ -39,6 +43,11 @@ export default {
   height: 400px;
 }
 
+.outline-button {
+  padding: 0.5em 1em;
+  border: 1px solid white;
+  border-radius: 5px;
+}
 @media (min-width: 1000px) {
   .back {
     min-width: 400px;

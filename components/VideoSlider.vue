@@ -1,6 +1,6 @@
 <template>
   <div
-    class="transition-all duration-1000 ml-0 flex gap-12 flex-nowrap overflow-y-scroll scroll"
+    class="transition-all duration-1000 ml-0 flex gap-12 flex-nowrap overflow-y-scroll scroll-video"
   >
     <slot></slot>
   </div>
@@ -9,7 +9,7 @@
 <script>
 export default {
   mounted() {
-    const slider = document.querySelector('.scroll')
+    const slider = document.querySelector('.scroll-video')
     if (slider) {
       let isDown = false
       let startX

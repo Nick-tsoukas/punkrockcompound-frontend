@@ -74,7 +74,7 @@ html, body {
 /* typography */
 /* stylelint-disable */
 p, li {
-  font-family: "ptmono";
+  font-family: "heebo";
 }
 
 
@@ -91,7 +91,7 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .ptmono {
-  font-family: 'ptmono'
+  font-family: 'heebo'
 }
 
 

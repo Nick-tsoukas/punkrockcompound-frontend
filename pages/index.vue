@@ -18,7 +18,7 @@
         </NuxtLink>
       </div>
     </section>
-    <h1 class="main_red_text my-12 px-10">All Bands</h1>
+    <h1 class="main_red_text my-12 px-10">Bands</h1>
     <section class="h-auto relative py-24 mb-20">
       <!-- swiper box black -->
       <!-- <div
@@ -30,7 +30,7 @@
         <ContentCard
           v-for="(band, index) in bands"
           :key="index"
-          :to="'bandprofile/' + band.id"
+          :bandId="band.id"
           :title="band.bandName"
         />
       </SliderContainer>
@@ -41,18 +41,31 @@
         <p class="text-2xl font-bold main_red_text">></p>
       </div> -->
     </section>
-    <h1 class="main_red_text my-12 px-10">All Videos</h1>
+    <h1 class="main_red_text my-12 px-10">Music Videos</h1>
     <section class="h-auto relative py-24 mb-20">
-      <SliderContainer id="video-container" class="py-10">
-        <NuxtLink
+      <!-- swiper box black -->
+      <!-- <div
+        class="bg-black w-46 h-full absolute left-0 z-50 bg-opacity-70 flex justify-center items-center w-36 top-0"
+      >
+        <p class="text-2xl font-bold main_red_text rotate-180">></p>
+      </div> -->
+      <VideoSlider id="video-container" class="py-10">
+        <ContentCard
           v-for="(band, index) in bands"
           :key="index"
-          :to="'bandprofile/' + band.id"
-        >
-          <ContentCard :title="band.bandName" />
-        </NuxtLink>
-      </SliderContainer>
+          class="scrollVideo"
+          :bandId="band.id"
+          :title="band.bandName"
+        />
+      </VideoSlider>
+      <!-- swiper box black -->
+      <!-- <div
+        class="bg-black bg-opacity-70 w-46 h-full absolute right-0 z-50 flex justify-center items-center top-0 w-36"
+      >
+        <p class="text-2xl font-bold main_red_text">></p>
+      </div> -->
     </section>
+
     <!-- The event section  -->
     <h1 class="main_red_text my-12 px-10">Featured Event</h1>
     <section class="h-auto relative py-24 mb-20 px-10">
@@ -82,9 +95,13 @@ export default {
       },
       { threshold: [1] }
     )
-
-    observer.observe(document.querySelector('#main-container'))
-    observer.observe(document.querySelector('#video-container'))
+    if (
+      document.querySelector('#main-container') &&
+      document.querySelector('#video-container')
+    ) {
+      observer.observe(document.querySelector('#main-container'))
+      observer.observe(document.querySelector('#video-container'))
+    }
   },
 }
 </script>
@@ -103,5 +120,13 @@ export default {
 
 .slide {
   margin-left: -150px;
+}
+
+.active {
+  cursor: grabbing !important;
+}
+
+.scrollVideo {
+  cursor: grab;
 }
 </style>

@@ -119,6 +119,7 @@ export default {
     return {
       band: '',
       load: false,
+      hide: false,
     }
   },
   computed: {
@@ -129,22 +130,21 @@ export default {
       return this.band.city + ', ' + this.band.state
     },
   },
-  beforeMount() {
-    window.addEventListener('scroll', this.handleScroll)
-  },
+  // beforeMount() {
+  //   window.addEventListener('scroll', this.handleScroll)
+  // },
   async mounted() {
     try {
-      console.log(this.$route.params)
       const id = await this.$route.params.id
       this.band = await this.$strapi.findOne('bands', id)
     } catch (error) {
-      console.log(error)
+      return error
     }
   },
 
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll)
-  },
+  // beforeDestroy() {
+  //   window.removeEventListener('scroll', this.handleScroll)
+  // },
 
   methods: {
     handleScroll() {
