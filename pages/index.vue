@@ -71,7 +71,6 @@
     <section class="h-auto relative py-24 mb-20 px-10">
       <h2>This is where we will display the events</h2>
     </section>
-    <pre>{{ animationCounter }}</pre>
   </div>
 </template>
 
@@ -84,7 +83,7 @@ export default {
         bands,
       }
     } catch (error) {
-      console.log(error)
+      return error
     }
   },
 
