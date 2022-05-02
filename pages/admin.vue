@@ -61,8 +61,12 @@
     <!-- This is the event form -->
     <section v-else class="px-28 mt-10 m-auto sm:w-4/5">
       <p class="main_red_text text-4xl chedder">Create Your Event</p>
-      <div class="flex">
-        <FormulateForm v-model="eventFormValues" @submit="submitEventForm">
+      <div>
+        <FormulateForm
+          class="py-12"
+          v-model="eventFormValues"
+          @submit="submitEventForm"
+        >
           <FormulateInput
             name="title"
             label="title"
@@ -71,29 +75,23 @@
             element-class="w-full"
             errors-class="sm:w-4/5 m-auto"
           />
-          <FormulateInput
-            name="title"
-            label="title"
-            validation="required"
-            wrapper-class="m-auto sm:w-4/5 "
-            element-class="w-full"
-            errors-class="sm:w-4/5 m-auto"
-          />
-          <FormulateInput
-            name="venueName"
-            label="Venue Name"
-            wrapper-class="m-auto sm:w-4/5 "
-            element-class="w-full"
-            errors-class="sm:w-4/5 m-auto"
-          />
-          <FormulateInput
-            type="date"
-            name="date"
-            label="date"
-            wrapper-class="m-auto sm:w-4/5 "
-            element-class="w-full"
-            errors-class="sm:w-4/5 m-auto"
-          />
+          <div class="double-wide m-auto">
+            <FormulateInput
+              name="venueName"
+              label="Venue Name"
+              wrapper-class="m-0  "
+              element-class="w-full"
+              errors-class="sm:w-4/5 m-auto"
+            />
+            <FormulateInput
+              type="date"
+              name="date"
+              label="date"
+              wrapper-class="m-0  "
+              element-class="w-full"
+              errors-class="sm:w-4/5 m-auto"
+            />
+          </div>
         </FormulateForm>
         <div class="m-auto sm:w-4/5 flex items-center">
           <div
@@ -169,3 +167,19 @@ export default {
   },
 }
 </script>
+
+<style lang="css" scoped>
+.double-wide {
+  display: flex;
+  max-width: 1440px;
+}
+.double-wide .formulate-input {
+  flex-grow: 1;
+}
+.double-wide .formulate-input:first-child {
+  margin-right: 0.5em;
+}
+.double-wide .formulate-input:last-child {
+  margin-left: 0.5em;
+}
+</style>
