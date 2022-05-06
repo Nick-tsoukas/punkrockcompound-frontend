@@ -106,7 +106,7 @@
         <ContentCard
           v-for="(album, index) in band.album"
           :key="index"
-          :bandId="album.id"
+          :bandId="band.id"
           :title="album.title"
           :albumImg="album.albumCover.url"
           :albumId="album.id"

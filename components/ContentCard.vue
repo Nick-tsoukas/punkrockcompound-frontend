@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="albumImg"
+    v-if="albumImg && bandId"
     class="back relative rounded-md shadow-md transition-all duration-200 hover:scale-105"
     :style="`background-image: url(${albumImg})`"
   >
@@ -13,7 +13,7 @@
         :params="{ name: 'jack' }"
         :to="{ path: '/album/' + albumId, query: { band: bandId } }"
       >
-        <p class="text-white">View Profile {{ albumId }}</p>
+        <p class="text-white">View Profile fdsfadsf {{ albumId }} fdsfds</p>
       </NuxtLink>
     </div>
   </div>
@@ -26,8 +26,13 @@
       class="flex justify-between items-center bg-black absolute bottom-0 w-full px-4 py-8"
     >
       <h2 class="text-2xl text-white">{{ title }}</h2>
-      <NuxtLink class="outline-button" :to="'bandprofile/' + bandId">
-        <p class="text-white">View Profile band</p>
+      <NuxtLink
+        class="outline-button"
+        :to="bandId ? `bandprofile/${bandId}` : `album/${albumId}`"
+      >
+        <p class="text-white">
+          View Profile {{ bandId }} albumid {{ albumId }}
+        </p>
       </NuxtLink>
     </div>
   </div>
@@ -56,7 +61,13 @@ export default {
     },
     albumImg: {
       type: String,
-      default: null,
+      default: '',
+    },
+    album: {
+      type: Object || Array,
+      default() {
+        return {}
+      },
     },
   },
 }
