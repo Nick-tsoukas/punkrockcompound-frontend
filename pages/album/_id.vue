@@ -86,7 +86,7 @@
               src="~/static/play.svg"
               alt=""
               @click="setSong(songData)"
-            /><span class="ptmono">{{ index + 1 }} play</span>
+            /><span class="ptmono">{{ index + 1 }} </span>
           </td>
           <td class="w-1/3 text-center ptmono">{{ songData.songTitle }}</td>
           <td class="w-1/3 text-right pr-8 ptmono">Favorite</td>
@@ -106,7 +106,6 @@
         :album="albumData.album"
       />
     </SliderContainer>
-    <pre>{{ albumSets }}</pre>
   </div>
 </template>
 

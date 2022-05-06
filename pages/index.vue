@@ -7,21 +7,24 @@
       <div
         class="flex flex-col md:flex md:flex-row gap-y-12 justify-around items-center"
       >
-        <NuxtLink :to="'bandprofile/1'">
+        <NuxtLink :to="'/bandprofile/1'">
           <ContentCard
             title="Fire"
             :bandProfile="bands[0].bandProfileImg.url"
+            :bandId="1"
           />
         </NuxtLink>
-        <NuxtLink :to="'bandprofile/2'">
+        <NuxtLink :to="'/bandprofile/2'">
           <ContentCard
             :bandProfile="bands[1].bandProfileImg.url"
             title="Earth"
+            :bandId="2"
           />
         </NuxtLink>
-        <NuxtLink :to="'bandprofile/3'">
+        <NuxtLink :to="'/bandprofile/3'">
           <ContentCard
             :bandProfile="bands[2].bandProfileImg.url"
+            :bandId="3"
             title="Lantern"
           />
         </NuxtLink>

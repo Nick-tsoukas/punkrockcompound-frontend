@@ -2,7 +2,7 @@
   <div
     class="back rounded-md shadow-md transition-all duration-200 relative hover:scale-105 flex-col"
   >
-    <video height="500" preload="metadata">
+    <video preload="metadata">
       <source :src="video.videoFile.url + '#t=5'" type="video/mp4" />
       >
     </video>
@@ -48,12 +48,13 @@ export default {
   background-position: center;
   background-size: cover;
   object-fit: fill;
-  min-width: 100vw;
   height: auto;
+  width: 200px;
+  min-width: 400px;
 }
 @media (min-width: 1000px) {
   .back {
-    min-width: 700px;
+    min-width: 450px;
   }
 } ;
 </style>

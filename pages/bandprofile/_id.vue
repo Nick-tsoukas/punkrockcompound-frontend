@@ -126,7 +126,6 @@
         />
       </VideoSlider>
     </section>
-    <pre>{{ band }}</pre>
   </div>
 </template>
 
