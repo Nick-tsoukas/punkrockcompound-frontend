@@ -1,14 +1,33 @@
 <template>
   <div
+    v-if="albumImg"
     class="back relative rounded-md shadow-md transition-all duration-200 hover:scale-105"
-    style="background-image: url('user_profile.png')"
+    :style="`background-image: url(${albumImg})`"
+  >
+    <div
+      class="flex justify-between items-center bg-black absolute bottom-0 w-full px-4 py-8"
+    >
+      <h2 class="text-2xl text-white">{{ title }}</h2>
+      <NuxtLink
+        class="outline-button"
+        :params="{ name: 'jack' }"
+        :to="{ path: '/album/' + albumId, query: { band: bandId } }"
+      >
+        <p class="text-white">View Profile {{ albumId }}</p>
+      </NuxtLink>
+    </div>
+  </div>
+  <div
+    v-else
+    class="back relative rounded-md shadow-md transition-all duration-200 hover:scale-105"
+    :style="`background-image: url(${bandProfile})`"
   >
     <div
       class="flex justify-between items-center bg-black absolute bottom-0 w-full px-4 py-8"
     >
       <h2 class="text-2xl text-white">{{ title }}</h2>
       <NuxtLink class="outline-button" :to="'bandprofile/' + bandId">
-        <p class="text-white">View Profile</p>
+        <p class="text-white">View Profile band</p>
       </NuxtLink>
     </div>
   </div>
@@ -21,13 +40,23 @@ export default {
       type: String,
       default: 'Cool Album',
     },
+    albumId: {
+      type: Number || String,
+      default: null,
+    },
+    bandProfile: {
+      type: String,
+      default() {
+        return '~/static/user_profile.png'
+      },
+    },
     bandId: {
       type: Number,
       default: 1,
     },
     albumImg: {
       type: String,
-      default: 'Cool Album',
+      default: null,
     },
   },
 }

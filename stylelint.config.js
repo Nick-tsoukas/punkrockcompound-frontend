@@ -13,5 +13,6 @@ module.exports = {
     'rule-empty-line-before': null,
     'color-function-notation': null,
     'alpha-value-notation': null,
+    'selector-pseudo-element-colon-notation': 'single',
   },
 }

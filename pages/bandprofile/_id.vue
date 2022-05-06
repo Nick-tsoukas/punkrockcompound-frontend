@@ -97,7 +97,36 @@
         </div>
       </div>
     </section>
-    <!-- <pre>{{ band }}</pre> -->
+    <section class="sm:w-3/4 mx-auto">
+      <h2>
+        Albums
+        <span class="ptmono pl-4 text-xl">by {{ band.bandName }}</span>
+      </h2>
+      <SliderContainer v-if="band.album" id="main-container" class="py-10">
+        <ContentCard
+          v-for="(album, index) in band.album"
+          :key="index"
+          :bandId="album.id"
+          :title="album.title"
+          :albumImg="album.albumCover.url"
+          :albumId="album.id"
+        />
+      </SliderContainer>
+      <h2>
+        Music Videos
+        <span class="ptmono pl-4 text-xl">by {{ band.bandName }}</span>
+      </h2>
+      <VideoSlider id="video-container" class="py-10">
+        <VideoCard
+          v-for="(video, index) in videos"
+          :key="index"
+          class="scrollVideo"
+          :video="video"
+          :bandName="video.band.bandName"
+        />
+      </VideoSlider>
+    </section>
+    <pre>{{ band }}</pre>
   </div>
 </template>
 
@@ -120,6 +149,7 @@ export default {
       band: '',
       load: false,
       hide: false,
+      videos: [],
     }
   },
   computed: {
@@ -137,6 +167,7 @@ export default {
     try {
       const id = await this.$route.params.id
       this.band = await this.$strapi.findOne('bands', id)
+      this.videos = await this.$strapi.find('videos', { band: id })
     } catch (error) {
       return error
     }

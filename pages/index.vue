@@ -8,13 +8,22 @@
         class="flex flex-col md:flex md:flex-row gap-y-12 justify-around items-center"
       >
         <NuxtLink :to="'bandprofile/1'">
-          <ContentCard title="Fire" />
+          <ContentCard
+            title="Fire"
+            :bandProfile="bands[0].bandProfileImg.url"
+          />
         </NuxtLink>
         <NuxtLink :to="'bandprofile/2'">
-          <ContentCard title="Earth" />
+          <ContentCard
+            :bandProfile="bands[1].bandProfileImg.url"
+            title="Earth"
+          />
         </NuxtLink>
         <NuxtLink :to="'bandprofile/3'">
-          <ContentCard title="Lantern" />
+          <ContentCard
+            :bandProfile="bands[2].bandProfileImg.url"
+            title="Lantern"
+          />
         </NuxtLink>
       </div>
     </section>
@@ -32,6 +41,7 @@
           :key="index"
           :bandId="band.id"
           :title="band.bandName"
+          :bandProfile="band.bandProfileImg.url"
         />
       </SliderContainer>
       <!-- swiper box black -->
@@ -50,12 +60,12 @@
         <p class="text-2xl font-bold main_red_text rotate-180">></p>
       </div> -->
       <VideoSlider id="video-container" class="py-10">
-        <ContentCard
-          v-for="(band, index) in bands"
+        <VideoCard
+          v-for="(video, index) in videos"
           :key="index"
           class="scrollVideo"
-          :bandId="band.id"
-          :title="band.bandName"
+          :video="video"
+          :bandName="video.band.bandName"
         />
       </VideoSlider>
       <!-- swiper box black -->
@@ -67,10 +77,14 @@
     </section>
 
     <!-- The event section  -->
-    <h1 class="main_red_text my-12 px-10">Featured Event</h1>
-    <section class="h-auto relative py-24 mb-20 px-10">
-      <h2>This is where we will display the events</h2>
+    <h1 class="main_red_text my-0 lg:my-12 text-center lg:px-28 lg:text-left">
+      Featured Event
+    </h1>
+    <section class="h-auto relative lg:py-24 mb-20 lg:px-10">
+      <FeaturedEvent :event="event" />
     </section>
+    <EventCta />
+    <NewsLetterCta />
   </div>
 </template>
 
@@ -79,8 +93,12 @@ export default {
   async asyncData({ $strapi }) {
     try {
       const bands = await $strapi.find('bands')
+      const event = await $strapi.find('featured-event')
+      const videos = await $strapi.find('videos')
       return {
         bands,
+        event,
+        videos,
       }
     } catch (error) {
       return error
