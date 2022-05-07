@@ -96,6 +96,7 @@
                   element-class=" w-[85vw] lg:w-full  lg:pr-4"
                   wrapper-class="flex justify-center  lg:pr-4"
                   :placeholder="band[0].bandName"
+                  @input="canUpdate"
                 />
               </div>
             </div>
@@ -125,6 +126,7 @@
                   element-class=" w-[85vw] lg:w-full  lg:pr-4"
                   wrapper-class="flex justify-center  lg:pr-4"
                   :placeholder="band[0].users_permissions_user.email"
+                  @input="canUpdate"
                 />
               </div>
             </div>
@@ -148,12 +150,13 @@
               </div>
               <div v-else>
                 <FormulateInput
-                  v-modle="genre"
+                  v-model="genre"
                   type="text"
                   name="genre"
                   element-class=" w-[85vw] lg:w-full  lg:pr-4"
                   wrapper-class="flex justify-center  lg:pr-4"
                   :placeholder="band[0].genre"
+                  @input="canUpdate"
                 />
               </div>
             </div>
@@ -188,23 +191,25 @@
                   City
                 </h3>
                 <FormulateInput
-                  v-modle="hometownForm"
+                  v-model="hometownForm"
                   type="text"
                   name="city"
                   element-class=" w-[85vw] lg:w-full "
                   wrapper-class="flex justify-center  "
                   :placeholder="band[0].city"
+                  @input="canUpdate"
                 />
                 <h3 class="main_red_text text-2xl w-[85vw] mx-auto lg:w-auto">
                   State
                 </h3>
                 <FormulateInput
-                  v-modle="hometownForm"
+                  v-model="hometownForm"
                   type="text"
                   name="state"
                   element-class=" w-[85vw] lg:w-full"
                   wrapper-class="flex justify-center"
                   :placeholder="band[0].state"
+                  @input="canUpdate"
                 />
               </div>
             </div>
@@ -228,12 +233,13 @@
               </div>
               <div v-else>
                 <FormulateInput
-                  v-modle="recordLabelForm"
+                  v-model="recordLabelForm"
                   type="text"
                   name="city"
                   element-class=" w-[85vw] lg:w-full"
                   wrapper-class="flex justify-center"
                   :placeholder="band[0].recordLabel"
+                  @input="canUpdate"
                 />
               </div>
             </div>
@@ -257,12 +263,13 @@
               </div>
               <div class="w-full" v-else>
                 <FormulateInput
-                  v-modle="bandManagerForm"
+                  v-model="bandManagerForm"
                   type="text"
                   name="city"
                   element-class=" w-[85vw] lg:w-full"
                   wrapper-class="flex justify-center"
                   :placeholder="band[0].bandManager"
+                  @input="canUpdate"
                 />
               </div>
             </div>
@@ -286,17 +293,30 @@
               </div>
               <div v-else>
                 <FormulateInput
-                  v-modle="bandEmailForm"
+                  v-model="bandEmailForm"
                   type="text"
-                  name="city"
+                  name="bandEmail"
                   element-class=" w-[85vw] lg:w-full"
                   wrapper-class="flex justify-center"
                   :placeholder="band[0].bandEmail"
+                  @input="canUpdate"
                 />
               </div>
             </div>
           </div>
-          <section>Update Back</section>
+          <section v-if="editDetails" class="block lg:hidden">
+            <div
+              :class="updateReady ? 'bg-green-500' : 'bg-black'"
+              class="button mb-4 transition-all duration-300 ease-linear"
+              @click="submitDetails"
+            >
+              Update
+            </div>
+
+            <div class="button mb-4 bg-black" @click="toggleEditDetails">
+              Back
+            </div>
+          </section>
           <div class="lg:flex flex-col items-center w-full">
             <div class="flex">
               <p
@@ -337,6 +357,19 @@
           </div>
         </div>
       </section>
+      <section
+        v-if="editDetails"
+        class="hidden lg:flex lg:justify-center lg:gap-10"
+      >
+        <div
+          :class="updateReady ? 'bg-green-500' : 'bg-black'"
+          class="button transition-all duration-300 ease-linear"
+        >
+          Update
+        </div>
+
+        <div class="button bg-black" @click="toggleEditDetails">Back</div>
+      </section>
       <section class="p-10 bioPaddinglarge">
         <h2
           class="main_text_red pb-10 px-20 text-center md:text-left lg:px-56 xl:px-72"
@@ -353,8 +386,8 @@
             Edit Bio
           </button>
           <button
+            class="text-center text-white w-full py-4 px-4 mt-6 bg-black shadow-md lg:w-60"
             @click="viewProfile"
-            class="text-center text-white w-full py-4 px-4 mt-6 bg-black shadow-md mt-10 lg:w-60"
           >
             View Profile
           </button>
@@ -383,8 +416,10 @@ export default {
       genre: '',
       bandNameForm: '',
       bandEmailForm: '',
+      bandManagerForm: '',
       hometownForm: {},
       recordLabelForm: '',
+      updateReady: false,
     }
   },
   computed: {
@@ -414,6 +449,39 @@ export default {
   methods: {
     toggleEditDetails() {
       this.editDetails = !this.editDetails
+      if (this.editDetails === false) {
+        this.updateReady = false
+      }
+    },
+    // bandName: this.bandNameForm,
+    // bandEmail: this.bandEmailForm,
+    // bandManager: this.bandManagerForm,
+    // city: this.hometownForm.city,
+    // state: this.hometownForm.state,
+    // recordLabel: this.recordLabelForm,
+    async submitDetails() {
+      const updated = await this.$strapi.update(
+        'bands',
+        this.$strapi.user.band,
+        {
+          ...(this.bandEmailForm && { bandEmail: this.bandEmailForm }),
+          ...(this.bandNameForm && { bandName: this.bandNameForm }),
+          ...(this.genre && { genre: this.genre }),
+          ...(this.bandManagerForm && { bandManager: this.bandManagerForm }),
+          ...(this.recordLabelForm && { recordLabel: this.recordLabelForm }),
+          ...(this.hometownForm.city && { city: this.hometownForm.city }),
+          ...(this.hometownForm.state && { city: this.hometownForm.state }),
+        }
+      )
+
+      console.log(updated.bandName, 'band changed ')
+      this.band = await this.$strapi.find('bands', {
+        users_permissions_user: this.$strapi.user.id,
+      })
+      this.toggleEditDetails()
+    },
+    canUpdate() {
+      return (this.updateReady = true)
     },
     viewProfile() {
       this.$router.push(`bandprofile/${this.band[0].id}`)
@@ -454,6 +522,11 @@ export default {
 </script>
 
 <style scoped>
+.button {
+  padding: 1.3em 6em;
+  color: white;
+  text-align: center;
+}
 .para {
   background-size: cover;
   object-fit: fill;
