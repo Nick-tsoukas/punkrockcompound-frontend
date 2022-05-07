@@ -14,17 +14,30 @@
       </div>
       <div class="flex flex-col flex-grow">
         <div v-if="!song" class="flex-grow h-full px-10 py-10 lg:px-24">
-          <h2 class="main_red_text py-4 lg:py-10">Now Playing</h2>
+          <h2 class="main_red_text pt-4 pb-2 text-2xl">Now Playing</h2>
           <div class="lg:px-0">
-            <h3 class="text-2xl">{{ songSong.songTitle }}</h3>
-            <p class="font-semibold text-xl mb-4">By {{ bandBand.bandName }}</p>
+            <h2 class="text-6xl">{{ songSong.songTitle }}</h2>
+            <p class="font-semibold text-xl pt-2">
+              By
+              <NuxtLink
+                class="text-4xl main_red_text"
+                :to="'/bandprofile/' + bandBand.id"
+                ><em>{{ bandBand.bandName }}</em></NuxtLink
+              >
+            </p>
           </div>
         </div>
         <div v-else class="flex-grow h-full px-10 py-10 lg:px-24">
-          <h2 class="main_red_text py-4 lg:py-10">Now Playing</h2>
+          <h2 class="main_red_text pt-4 pb-2 text-2xl">Now Playing</h2>
           <div class="lg:px-0">
-            <h3 class="text-2xl">{{ song.songTitle }}</h3>
-            <p class="font-semibold text-xl mb-4">By {{ bandBand.bandName }}</p>
+            <h2 class="text-6xl">{{ song.songTitle }}</h2>
+            <p class="font-semibold text-4xl pt-2">
+              By<NuxtLink
+                class="text-4xl main_red_text"
+                :to="'/bandprofile/' + bandBand.id"
+                ><em>{{ bandBand.bandName }}</em></NuxtLink
+              >
+            </p>
           </div>
         </div>
         <div
@@ -60,6 +73,20 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="h-full lg:w-4/5 2xl:w-2/3 py-6 bg-black mx-auto">
+      <p class="text-white chedder pl-[138px] lg:inline">
+        <NuxtLink class="text-lg" :to="'/bandprofile/' + bandBand.id"
+          >View Profile</NuxtLink
+        >
+      </p>
+      <span class="font-semibold text-4xl pt-2">
+        By<NuxtLink
+          class="text-lg main_red_text"
+          :to="'/bandprofile/' + bandBand.id"
+          ><em>{{ bandBand.bandName }}</em></NuxtLink
+        >
+      </span>
     </div>
     <section class="lg:mt-20">
       <table class="mx-auto w-full lg:w-4/6">

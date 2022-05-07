@@ -13,13 +13,14 @@
         :params="{ name: 'jack' }"
         :to="{ path: '/album/' + albumId, query: { band: bandId } }"
       >
-        <p class="text-white">View Profile fdsfadsf {{ albumId }} fdsfds</p>
+        <p class="text-white">View Profile</p>
       </NuxtLink>
     </div>
   </div>
   <div
     v-else
-    class="back relative rounded-md shadow-md transition-all duration-200 hover:scale-105"
+    class="relative rounded-md shadow-md transition-all duration-200 hover:scale-105"
+    :class="isFeat ? 'featuredBackground' : 'back'"
     :style="`background-image: url(${bandProfile})`"
   >
     <div
@@ -30,9 +31,7 @@
         class="outline-button"
         :to="bandId ? `bandprofile/${bandId}` : `album/${albumId}`"
       >
-        <p class="text-white">
-          View Profile {{ bandId }} albumid {{ albumId }}
-        </p>
+        <p class="text-white">View Profile</p>
       </NuxtLink>
     </div>
   </div>
@@ -69,6 +68,12 @@ export default {
         return {}
       },
     },
+    isFeat: {
+      type: Boolean,
+      default() {
+        return false
+      },
+    },
   },
 }
 </script>
@@ -82,6 +87,13 @@ export default {
   height: 400px;
 }
 
+.featuredBackground {
+  background-position: center;
+  background-size: cover;
+  object-fit: fill;
+  height: 700px;
+}
+
 .outline-button {
   padding: 0.5em 1em;
   border: 1px solid white;
@@ -89,7 +101,7 @@ export default {
 }
 @media (min-width: 1000px) {
   .back {
-    min-width: 400px;
+    min-width: 500px;
   }
 } ;
 </style>

@@ -2,27 +2,33 @@
   <div>
     <IntroHome />
     <!-- featured bands -->
-    <section class="bg-gray-50 h-auto pb-20">
-      <h2 class="text-center py-12 px-10">Featured Bands</h2>
+    <section class="background-custom h-auto mt-20 py-20">
+      <h2 class="text-center py-12 px-10 text-white">Featured Bands</h2>
       <div
-        class="flex flex-col md:flex md:flex-row gap-y-12 justify-around items-center"
+        class="flex flex-col md:flex md:flex-row gap-y-8 justify-around items-center px-10"
       >
-        <NuxtLink :to="'/bandprofile/1'">
+        <NuxtLink class="w-full" :to="'/bandprofile/1'">
           <ContentCard
+            class="h-full w-full lg:w-[30vw]"
             title="Fire"
+            :isFeat="true"
             :bandProfile="bands[0].bandProfileImg.url"
             :bandId="1"
           />
         </NuxtLink>
-        <NuxtLink :to="'/bandprofile/2'">
+        <NuxtLink class="w-full h-[700px]" :to="'/bandprofile/2'">
           <ContentCard
+            class="h-full w-full lg:w-[30vw]"
+            :isFeat="true"
             :bandProfile="bands[1].bandProfileImg.url"
             title="Earth"
             :bandId="2"
           />
         </NuxtLink>
-        <NuxtLink :to="'/bandprofile/3'">
+        <NuxtLink class="w-full h-[700px]" :to="'/bandprofile/3'">
           <ContentCard
+            class="h-full w-full lg:w-[30vw]"
+            :isFeat="true"
             :bandProfile="bands[2].bandProfileImg.url"
             :bandId="3"
             title="Lantern"
@@ -30,8 +36,8 @@
         </NuxtLink>
       </div>
     </section>
-    <h1 class="main_red_text my-12 px-10">Bands</h1>
-    <section class="h-auto relative py-24 mb-20">
+    <h1 class="main_red_text my-4 px-28">Bands</h1>
+    <section class="h-auto relative">
       <!-- swiper box black -->
       <!-- <div
         class="bg-black w-46 h-full absolute left-0 z-50 bg-opacity-70 flex justify-center items-center w-36 top-0"
@@ -54,8 +60,8 @@
         <p class="text-2xl font-bold main_red_text">></p>
       </div> -->
     </section>
-    <h1 class="main_red_text my-12 px-10">Music Videos</h1>
-    <section class="h-auto relative py-24 mb-20">
+    <h1 class="main_red_text my-4 px-28">Music Videos</h1>
+    <section class="h-auto relative mb-20">
       <!-- swiper box black -->
       <!-- <div
         class="bg-black w-46 h-full absolute left-0 z-50 bg-opacity-70 flex justify-center items-center w-36 top-0"
@@ -163,5 +169,10 @@ export default {
 
 .scrollVideo {
   cursor: grab;
+}
+
+.background-custom {
+  background-color: #000;
+  background-image: linear-gradient(2deg, #000 60%, #767676 94%);
 }
 </style>
