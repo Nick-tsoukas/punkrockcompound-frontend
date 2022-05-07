@@ -18,6 +18,7 @@
       </div>
       <section v-if="editImg" class="w-full xl:h-[300px]">
         <FormulateInput
+          v-if="!isLoading"
           type="image"
           name="bandProfileImg"
           label="Select an image to upload"
@@ -38,20 +39,27 @@
           @file-upload-complete="complete"
           @file-removed="complete"
         />
+        <section v-else class="flex justify-center items-center h-full w-full">
+          <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+          </div>
+        </section>
       </section>
-      <div
-        class="lg:flex justify-center gap-10 px-10"
-        @click="toggleEditImg(true)"
-      >
+      <div class="lg:flex justify-center gap-10 px-10">
         <button
           class="text-center text-white w-full py-4 px-4 bg-black shadow-md mt-10 lg:w-60"
+          @click="toggleEditImg(true)"
         >
           {{ editImg ? `Back` : `Edit Profile Image` }}
         </button>
         <button
           v-if="editImg"
-          :class="!isComplete ? 'bg-black opacity-50' : 'bg-green-500'"
+          :class="
+            !isComplete ? 'bg-black opacity-50 disabled:' : 'bg-green-500'
+          "
           class="text-center text-white w-full py-4 px-4 shadow-md mt-10 lg:w-60 transition-all ease-linear duration-700"
+          @click="submitProfileImg"
         >
           Submit Photo
         </button>
@@ -60,82 +68,235 @@
       <!-- Band Details Section -->
       <h2 class="main_red_text text-center py-8 mb-10">Band Details</h2>
       <section class="px-10 xl:px-72 extraLarge largeTop">
-        <div class="md:flex">
-          <div class="pr-32">
+        <div class="lg:flex mx-auto">
+          <div class="w-full mx-auto">
             <div class="pb-8">
-              <h3 class="main_red_text text-2xl">Band Name</h3>
-              <div class="flex items-center">
-                <p class="text-xl pr-4">{{ band[0].bandName }}</p>
-                <img class="h-4" src="~/static/edit.svg" alt="" />
+              <h3 class="main_red_text text-2xl w-[85vw] mx-auto lg:w-auto">
+                Band Name
+              </h3>
+              <div
+                v-if="!editDetails"
+                class="flex items-center w-[85vw] mx-auto lg:w-auto"
+              >
+                <p class="text-xl pr-4">
+                  {{ band[0].bandName }}
+                </p>
+                <img
+                  class="h-4"
+                  src="~/static/edit.svg"
+                  alt=""
+                  @click="toggleEditDetails"
+                />
+              </div>
+              <div v-else>
+                <FormulateInput
+                  v-model="bandNameForm"
+                  type="text"
+                  name="bandName"
+                  element-class=" w-[85vw] lg:w-full  lg:pr-4"
+                  wrapper-class="flex justify-center  lg:pr-4"
+                  :placeholder="band[0].bandName"
+                />
               </div>
             </div>
-            <div class="pb-8">
-              <h3 class="main_red_text text-2xl">Admin Email</h3>
-              <div class="flex items-center">
+            <div class="pb-8 w-full">
+              <h3 class="main_red_text text-2xl w-[85vw] mx-auto lg:w-auto">
+                Admin Email
+              </h3>
+              <div
+                v-if="!editDetails"
+                class="flex items-center w-[85vw] mx-auto lg:w-auto"
+              >
                 <p class="text-xl pr-4">
                   {{ band[0].users_permissions_user.email }}
                 </p>
-                <img class="h-4" src="~/static/edit.svg" alt="" />
+                <img
+                  class="h-4"
+                  src="~/static/edit.svg"
+                  alt=""
+                  @click="toggleEditDetails"
+                />
+              </div>
+              <div v-else>
+                <FormulateInput
+                  v-model="bandEmailForm"
+                  type="email"
+                  name="bandEmail"
+                  element-class=" w-[85vw] lg:w-full  lg:pr-4"
+                  wrapper-class="flex justify-center  lg:pr-4"
+                  :placeholder="band[0].users_permissions_user.email"
+                />
               </div>
             </div>
             <div class="pb-8">
-              <h3 class="main_red_text text-2xl">Admin Name</h3>
-              <div class="flex items-center">
-                <p class="text-xl pr-4">
-                  {{ band[0].users_permissions_user.username }}
-                </p>
-                <img class="h-4" src="~/static/edit.svg" alt="" />
-              </div>
-            </div>
-            <div class="pb-8">
-              <h3 class="main_red_text text-2xl">Genre</h3>
-              <div class="flex items-center">
+              <h3 class="main_red_text text-2xl w-[85vw] mx-auto lg:w-auto">
+                Genre
+              </h3>
+              <div
+                v-if="!editDetails"
+                class="flex items-center w-[85vw] mx-auto lg:w-auto"
+              >
                 <p class="text-xl pr-4">
                   {{ band[0].genre }}
                 </p>
-                <img class="h-4" src="~/static/edit.svg" alt="" />
+                <img
+                  class="h-4"
+                  src="~/static/edit.svg"
+                  alt=""
+                  @click="toggleEditDetails"
+                />
+              </div>
+              <div v-else>
+                <FormulateInput
+                  v-modle="genre"
+                  type="text"
+                  name="genre"
+                  element-class=" w-[85vw] lg:w-full  lg:pr-4"
+                  wrapper-class="flex justify-center  lg:pr-4"
+                  :placeholder="band[0].genre"
+                />
               </div>
             </div>
           </div>
           <!-- column two of details on medium -->
-          <div>
+          <div class="w-full">
             <div class="pb-8">
-              <h3 class="main_red_text text-2xl">Hometown</h3>
-              <div class="flex items-center">
+              <h3
+                v-if="!editDetails"
+                class="main_red_text text-2xl w-[85vw] mx-auto lg:w-auto"
+              >
+                Hometown
+              </h3>
+              <div
+                v-if="!editDetails"
+                class="flex items-center w-[85vw] mx-auto lg:w-auto"
+              >
                 <p class="text-xl pr-4">
                   {{ hometown }}
                 </p>
-                <img class="h-4" src="~/static/edit.svg" alt="" />
+                <img
+                  class="h-4"
+                  src="~/static/edit.svg"
+                  alt=""
+                  @click="toggleEditDetails"
+                />
+              </div>
+              <div v-else>
+                <h3
+                  class="main_red_text text-2xl w-[85vw] mt-4 md:mt-0 mx-auto lg:w-auto"
+                >
+                  City
+                </h3>
+                <FormulateInput
+                  v-modle="hometownForm"
+                  type="text"
+                  name="city"
+                  element-class=" w-[85vw] lg:w-full "
+                  wrapper-class="flex justify-center  "
+                  :placeholder="band[0].city"
+                />
+                <h3 class="main_red_text text-2xl w-[85vw] mx-auto lg:w-auto">
+                  State
+                </h3>
+                <FormulateInput
+                  v-modle="hometownForm"
+                  type="text"
+                  name="state"
+                  element-class=" w-[85vw] lg:w-full"
+                  wrapper-class="flex justify-center"
+                  :placeholder="band[0].state"
+                />
               </div>
             </div>
             <div class="pb-8">
-              <h3 class="main_red_text text-2xl">Record Label</h3>
-              <div class="flex items-center">
+              <h3 class="main_red_text text-2xl w-[85vw] mx-auto lg:w-auto">
+                Record Label
+              </h3>
+              <div
+                v-if="!editDetails"
+                class="flex items-center w-[85vw] mx-auto lg:w-auto"
+              >
                 <p class="text-xl pr-4">
                   {{ band[0].recordLabel }}
                 </p>
-                <img class="h-4" src="~/static/edit.svg" alt="" />
+                <img
+                  class="h-4"
+                  src="~/static/edit.svg"
+                  alt="edit"
+                  @click="toggleEditDetails"
+                />
+              </div>
+              <div v-else>
+                <FormulateInput
+                  v-modle="recordLabelForm"
+                  type="text"
+                  name="city"
+                  element-class=" w-[85vw] lg:w-full"
+                  wrapper-class="flex justify-center"
+                  :placeholder="band[0].recordLabel"
+                />
               </div>
             </div>
             <div class="pb-8">
-              <h3 class="main_red_text text-2xl">Band Manager</h3>
-              <div class="flex items-center">
+              <h3 class="main_red_text text-2xl w-[85vw] mx-auto lg:w-auto">
+                Band Manager
+              </h3>
+              <div
+                v-if="!editDetails"
+                class="flex items-center w-[85vw] mx-auto lg:w-auto"
+              >
                 <p class="text-xl pr-4">
-                  {{ band[0].recordLabel }}
+                  {{ band[0].bandManager }}
                 </p>
-                <img class="h-4" src="~/static/edit.svg" alt="" />
+                <img
+                  class="h-4"
+                  src="~/static/edit.svg"
+                  alt=""
+                  @click="toggleEditDetails"
+                />
+              </div>
+              <div class="w-full" v-else>
+                <FormulateInput
+                  v-modle="bandManagerForm"
+                  type="text"
+                  name="city"
+                  element-class=" w-[85vw] lg:w-full"
+                  wrapper-class="flex justify-center"
+                  :placeholder="band[0].bandManager"
+                />
               </div>
             </div>
             <div class="pb-8">
-              <h3 class="main_red_text text-2xl">Band Email</h3>
-              <div class="flex items-center">
+              <h3 class="main_red_text text-2xl w-[85vw] mx-auto lg:w-auto">
+                Band Email
+              </h3>
+              <div
+                v-if="!editDetails"
+                class="flex items-center w-[85vw] mx-auto lg:w-auto"
+              >
                 <p class="text-xl pr-4">
                   {{ band[0].bandEmail }}
                 </p>
-                <img class="h-4" src="~/static/edit.svg" alt="" />
+                <img
+                  class="h-4"
+                  src="~/static/edit.svg"
+                  alt=""
+                  @click="toggleEditDetails"
+                />
+              </div>
+              <div v-else>
+                <FormulateInput
+                  v-modle="bandEmailForm"
+                  type="text"
+                  name="city"
+                  element-class=" w-[85vw] lg:w-full"
+                  wrapper-class="flex justify-center"
+                  :placeholder="band[0].bandEmail"
+                />
               </div>
             </div>
           </div>
+          <section>Update Back</section>
           <div class="lg:flex flex-col items-center w-full">
             <div class="flex">
               <p
@@ -216,6 +377,14 @@ export default {
       editImg: false,
       profileImage: '',
       isComplete: false,
+      image: null,
+      isLoading: false,
+      editDetails: false,
+      genre: '',
+      bandNameForm: '',
+      bandEmailForm: '',
+      hometownForm: {},
+      recordLabelForm: '',
     }
   },
   computed: {
@@ -243,19 +412,42 @@ export default {
   },
 
   methods: {
+    toggleEditDetails() {
+      this.editDetails = !this.editDetails
+    },
     viewProfile() {
       this.$router.push(`bandprofile/${this.band[0].id}`)
     },
     toggleEditImg(isEdit) {
       if (isEdit) {
-        this.profileImage = ''
         this.isComplete = false
       }
       this.editImg = !this.editImg
     },
     complete() {
       this.isComplete = !this.isComplete
-      console.log(true)
+
+      console.log(this.profileImage)
+    },
+    async submitProfileImg() {
+      console.log(this.$strapi.user.band, 'band id', this.$strapi.user, ' user')
+      try {
+        // loading
+        this.isLoading = true
+        const formData = new FormData()
+        await formData.append('files', this.profileImage)
+        const [image] = await this.$strapi.create('upload', formData)
+        this.image = image
+        await this.$strapi.update('bands', 3, {
+          bandProfileImg: this.image,
+        })
+        this.band[0].bandProfileImg = await this.image
+        this.toggleEditImg(true)
+        // not Loading
+        this.isLoading = false
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }
@@ -279,8 +471,53 @@ export default {
   padding-left: 5em;
   padding-right: 5em;
 }
+
 .formulate-input[data-classification='file'] .formulate-input-upload-area {
   height: 500px !important;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  margin: auto;
+}
+
+.double-bounce1,
+.double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: red;
+  opacity: 0.8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: sk-bounce 2s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  animation-delay: -0.5s;
+}
+
+@keyframes sk-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes sk-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
 }
 
 @media (min-width: 1700px) {
