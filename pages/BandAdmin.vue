@@ -2,6 +2,7 @@
   <div>
     <section v-if="band">
       <div
+        v-if="!editImg"
         class="h-96 object-fill para relative xl:h-[500px]"
         :style="{
           'background-image': `url(${band[0].bandProfileImg.url})`,
@@ -15,13 +16,47 @@
           </h2>
         </div>
       </div>
-      <div class="lg:flex justify-center px-10">
+      <section v-if="editImg" class="w-full xl:h-[300px]">
+        <FormulateInput
+          type="image"
+          name="bandProfileImg"
+          label="Select an image to upload"
+          help="Select a png, jpg or gif to upload."
+          help-class="sm:w-96 mx-auto"
+          :wrapper-class="[
+            'my-wrapper-class',
+            'mx-auto',
+            'h-[300px]',
+            'sm:w-96',
+          ]"
+          :uploadAreaMask-class="['bg-black']"
+          :uploadArea-class="['bg-black', 'h-[300px]']"
+          validation="mime:image/jpeg,image/png,image/gif"
+          input-class=" mx-auto sm:w-96 "
+          element-class=" sm:w-96 "
+          @change="profileImage = $event.target.files[0]"
+          @file-upload-complete="complete"
+          @file-removed="complete"
+        />
+      </section>
+      <div
+        class="lg:flex justify-center gap-10 px-10"
+        @click="toggleEditImg(true)"
+      >
         <button
           class="text-center text-white w-full py-4 px-4 bg-black shadow-md mt-10 lg:w-60"
         >
-          Edit Profile Image
+          {{ editImg ? `Back` : `Edit Profile Image` }}
+        </button>
+        <button
+          v-if="editImg"
+          :class="!isComplete ? 'bg-black opacity-50' : 'bg-green-500'"
+          class="text-center text-white w-full py-4 px-4 shadow-md mt-10 lg:w-60 transition-all ease-linear duration-700"
+        >
+          Submit Photo
         </button>
       </div>
+
       <!-- Band Details Section -->
       <h2 class="main_red_text text-center py-8 mb-10">Band Details</h2>
       <section class="px-10 xl:px-72 extraLarge largeTop">
@@ -178,6 +213,9 @@ export default {
     return {
       user: '',
       band: '',
+      editImg: false,
+      profileImage: '',
+      isComplete: false,
     }
   },
   computed: {
@@ -208,6 +246,17 @@ export default {
     viewProfile() {
       this.$router.push(`bandprofile/${this.band[0].id}`)
     },
+    toggleEditImg(isEdit) {
+      if (isEdit) {
+        this.profileImage = ''
+        this.isComplete = false
+      }
+      this.editImg = !this.editImg
+    },
+    complete() {
+      this.isComplete = !this.isComplete
+      console.log(true)
+    },
   },
 }
 </script>
@@ -229,6 +278,9 @@ export default {
 .extraLarge {
   padding-left: 5em;
   padding-right: 5em;
+}
+.formulate-input[data-classification='file'] .formulate-input-upload-area {
+  height: 500px !important;
 }
 
 @media (min-width: 1700px) {
