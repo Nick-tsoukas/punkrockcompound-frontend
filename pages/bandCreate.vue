@@ -110,7 +110,7 @@
             </h2>
             <div class="flex w-full justify-center">
               <FormulateInput
-                name="bandBio"
+                name="bio"
                 type="textarea"
                 label="Enter your band bio here"
                 input-class="w-full sm:w-96 h-72"
@@ -128,9 +128,9 @@
               element-class="w-full"
             />
           </div>
-          <pre>{{ image }}</pre>
         </FormulateForm>
       </div>
+      <pre>{{ formValues.bandName }} fdsfdsafdsa</pre>
     </section>
   </div>
 </template>
