@@ -68,7 +68,7 @@
       >
         <p class="text-2xl font-bold main_red_text rotate-180">></p>
       </div> -->
-      <VideoSlider id="video-container" class="py-10">
+      <!-- <VideoSlider id="video-container" class="py-10">
         <VideoCard
           v-for="(video, index) in videos"
           :key="index"
@@ -76,7 +76,7 @@
           :video="video"
           :bandName="video.band.bandName"
         />
-      </VideoSlider>
+      </VideoSlider> -->
       <!-- swiper box black -->
       <!-- <div
         class="bg-black bg-opacity-70 w-46 h-full absolute right-0 z-50 flex justify-center items-center top-0 w-36"
@@ -104,6 +104,7 @@ export default {
       const bands = await $strapi.find('bands')
       const event = await $strapi.find('featured-event')
       const videos = await $strapi.find('videos')
+      console.log('bands')
       return {
         bands,
         event,

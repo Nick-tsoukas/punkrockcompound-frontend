@@ -10,7 +10,6 @@
       <h2 class="text-2xl text-white">{{ title }}</h2>
       <NuxtLink
         class="outline-button"
-        :params="{ name: 'jack' }"
         :to="{ path: '/album/' + albumId, query: { band: bandId } }"
       >
         <p class="text-white">View Profile</p>
@@ -63,9 +62,9 @@ export default {
       default: '',
     },
     album: {
-      type: Object || Array,
+      type: Array,
       default() {
-        return {}
+        return []
       },
     },
     isFeat: {

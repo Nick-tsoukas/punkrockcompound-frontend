@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full lg:w-4/5 lg:mt-20 mx-auto">
+  <div v-if="bandBand" class="w-full lg:w-4/5 lg:mt-20 mx-auto">
     <!-- top player container  -->
     <div class="flex flex-col lg:flex-row 2xl:w-2/3 mx-auto">
       <div>
@@ -9,14 +9,16 @@
           alt=""
         />
         <div class="h-28 w-full bg-black flex items-center justify-center">
-          <h2 class="text-white">{{ albumAlbum[0].title }}</h2>
+          <h2 class="text-white text-3xl sm:text-4xl">
+            {{ albumAlbum[0].title }}
+          </h2>
         </div>
       </div>
       <div class="flex flex-col flex-grow">
         <div v-if="!song" class="flex-grow h-full px-10 py-10 lg:px-24">
           <h2 class="main_red_text pt-4 pb-2 text-2xl">Now Playing</h2>
           <div class="lg:px-0">
-            <h2 class="text-6xl">{{ songSong.songTitle }}</h2>
+            <h2 class="text-3xl sm:text-4xl">{{ songSong.songTitle }}</h2>
             <p class="font-semibold text-xl pt-2">
               By
               <NuxtLink
@@ -41,7 +43,7 @@
           </div>
         </div>
         <div
-          class="bg-black min-h-[112px] w-full flex items-center justify-center"
+          class="bg-black min-h-[112px] flex w-full items-center justify-center"
         >
           <audio id="music" height="0" width="0">
             <source
@@ -74,7 +76,9 @@
         </div>
       </div>
     </div>
-    <div class="h-full lg:w-4/5 2xl:w-2/3 py-6 bg-black mx-auto">
+    <div
+      class="h-full w-full xl:w-[66.7%] flex-grow py-6 bg-black mx-auto bottom-bar"
+    >
       <p class="text-white chedder pl-[138px] lg:inline">
         <NuxtLink class="text-lg" :to="'/bandprofile/' + bandBand.id"
           >View Profile</NuxtLink
@@ -88,6 +92,7 @@
         >
       </span>
     </div>
+
     <section class="lg:mt-20">
       <table class="mx-auto w-full lg:w-4/6">
         <tr class="border-b-2 border-black py-8 h-[70px]">
@@ -140,6 +145,7 @@
 export default {
   async asyncData({ $strapi, route }) {
     const bandBand = await $strapi.findOne('bands', route.query.band)
+
     const albumIdId = await route.params.id
     const albumSets = bandBand.album
     const albumAlbum = await bandBand.album.filter((album, index) => {
@@ -284,6 +290,13 @@ export default {
 
   .now {
     width: 60%;
+  }
+}
+
+@media only screen and (min-width: 1273px) and (max-width: 1550px) {
+  .bottom-bar {
+    width: 100% !important;
+    background: red;
   }
 }
 </style>
