@@ -130,7 +130,6 @@
           </div>
         </FormulateForm>
       </div>
-      <pre>{{ formValues.bandName }} fdsfdsafdsa</pre>
     </section>
   </div>
 </template>
