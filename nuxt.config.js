@@ -1,6 +1,7 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   // Global page headers: https://go.nuxtjs.dev/config-head
+  target: 'server',
   head: {
     title: 'punkrockcompound-frontend',
     meta: [
