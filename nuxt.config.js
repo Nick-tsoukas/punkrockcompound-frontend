@@ -1,7 +1,7 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   // Global page headers: https://go.nuxtjs.dev/config-head
-  target: 'static',
+  target: 'server',
   head: {
     title: 'punkrockcompound-frontend',
     meta: [
@@ -93,9 +93,10 @@ export default {
   },
   publicRuntimeConfig: {
     frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
-    backendUrl: process.env.BACKEND_URL || 'http://localhost:1337/api',
+    backendUrl: process.env.BACKEND_URL,
     isDev: process.env.NODE_ENV === 'development' || false,
   },
+  // || 'http://localhost:1337/api',
   privateRuntimeConfig: {
     // apiSecret: process.env.API_SECRET
   },

@@ -1,4 +1,5 @@
 <template>
+  <!-- Fix progress bar and find  error in data table -->
   <div v-if="bandBand" class="w-full lg:w-4/5 lg:mt-20 mx-auto">
     <!-- top player container  -->
     <div class="flex flex-col lg:flex-row 2xl:w-2/3 mx-auto">
@@ -94,7 +95,8 @@
     </div>
 
     <section class="lg:mt-20">
-      <table class="mx-auto w-full lg:w-4/6">
+      <!-- causing error in dom tree -->
+      <!-- <table class="mx-auto w-full lg:w-4/6">
         <tr class="border-b-2 border-black py-8 h-[70px]">
           <th class="w-1/3 text-left chedder text-2xl pl-8">Track</th>
           <th class="w-1/3 text-center chedder text-2xl">Title</th>
@@ -123,7 +125,7 @@
           <td class="w-1/3 text-center ptmono">{{ songData.songTitle }}</td>
           <td class="w-1/3 text-right pr-8 ptmono">Favorite</td>
         </tr>
-      </table>
+      </table> -->
     </section>
 
     <h2>Albums</h2>
@@ -145,7 +147,6 @@
 export default {
   async asyncData({ $strapi, route }) {
     const bandBand = await $strapi.findOne('bands', route.query.band)
-
     const albumIdId = await route.params.id
     const albumSets = bandBand.album
     const albumAlbum = await bandBand.album.filter((album, index) => {
@@ -180,40 +181,36 @@ export default {
     },
   },
   async mounted() {
-    const audio = await document.getElementById('music')
-    const progressBar = document.querySelector('.progress-bar')
-    console.log(progressBar, 'progress')
-    const now = document.querySelector('.now')
-
-    // console.log('this is the audio duration ', conversion(audio.duration))
-    const start = document.querySelector('.start')
-    const end = document.querySelector('.end')
-
-    function conversion(value) {
-      let minute = Math.floor(value / 60)
-      minute = minute.toString().length === 1 ? '0' + minute : minute
-      let second = Math.round(value % 60)
-      second = second.toString().length === 1 ? '0' + second : second
-      return `${minute}:${second}`
-    }
-
-    setTimeout(() => {
-      progressBar.addEventListener('click', function (event) {
-        const coordStart = this.getBoundingClientRect().left
-        const coordEnd = event.pageX
-        const p = (coordEnd - coordStart) / this.offsetWidth
-        now.style.width = p.toFixed(3) * 100 + '%'
-        audio.currentTime = p * audio.duration
-        audio.play()
-      })
-    }, 100)
-
-    setInterval(() => {
-      start.innerHTML = conversion(audio.currentTime)
-      end.innerHTML = conversion(audio.duration)
-      now.style.width =
-        (audio.currentTime / audio.duration.toFixed(3)) * 100 + '%'
-    }, 1000)
+    // const audio = await document.getElementById('music')
+    // const progressBar = document.querySelector('.progress-bar')
+    // console.log(progressBar, 'progress')
+    // const now = document.querySelector('.now')
+    // // console.log('this is the audio duration ', conversion(audio.duration))
+    // const start = document.querySelector('.start')
+    // const end = document.querySelector('.end')
+    // function conversion(value) {
+    //   let minute = Math.floor(value / 60)
+    //   minute = minute.toString().length === 1 ? '0' + minute : minute
+    //   let second = Math.round(value % 60)
+    //   second = second.toString().length === 1 ? '0' + second : second
+    //   return `${minute}:${second}`
+    // }
+    // setTimeout(() => {
+    //   progressBar.addEventListener('click', function (event) {
+    //     const coordStart = this.getBoundingClientRect().left
+    //     const coordEnd = event.pageX
+    //     const p = (coordEnd - coordStart) / this.offsetWidth
+    //     now.style.width = p.toFixed(3) * 100 + '%'
+    //     audio.currentTime = p * audio.duration
+    //     audio.play()
+    //   })
+    // }, 100)
+    // setInterval(() => {
+    //   start.innerHTML = conversion(audio.currentTime)
+    //   end.innerHTML = conversion(audio.duration)
+    //   now.style.width =
+    //     (audio.currentTime / audio.duration.toFixed(3)) * 100 + '%'
+    // }, 1000)
   },
   methods: {
     play: function () {

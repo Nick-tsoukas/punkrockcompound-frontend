@@ -3,37 +3,38 @@
     <IntroHome />
     <!-- featured bands -->
     <section class="background-custom h-auto mt-20 py-20">
-      <h2 class="text-center py-12 px-10 text-white">Featured Bands</h2>
+      <h2 class="text-center py-12 px-10 text-white"></h2>
+
       <div
         class="flex flex-col md:flex md:flex-row gap-y-8 justify-around items-center px-10"
       >
-        <NuxtLink class="w-full" :to="'/bandprofile/1'">
+        <NuxtLink class="w-full" :to="`/bandprofile/${bands[0].id}`">
           <ContentCard
             class="h-full w-full lg:w-[30vw]"
             title="Fire"
             :isFeat="true"
             :bandProfile="bands[0].bandProfileImg.url"
-            :bandId="1"
+            :bandId="bands[0].id"
           />
         </NuxtLink>
-        <NuxtLink class="w-full h-[700px]" :to="'/bandprofile/2'">
+        <NuxtLink class="w-full h-[700px]" :to="`/bandprofile/${bands[0].id}`">
           <ContentCard
             class="h-full w-full lg:w-[30vw]"
             :isFeat="true"
             :bandProfile="bands[1].bandProfileImg.url"
             title="Earth"
-            :bandId="2"
+            :bandId="bands[0].id"
           />
         </NuxtLink>
-        <NuxtLink class="w-full h-[700px]" :to="'/bandprofile/3'">
+        <!-- <NuxtLink class="w-full h-[700px]" :to="'/bandprofile/3'">
           <ContentCard
             class="h-full w-full lg:w-[30vw]"
             :isFeat="true"
             :bandProfile="bands[2].bandProfileImg.url"
             :bandId="3"
             title="Lantern"
-          />
-        </NuxtLink>
+          /> -->
+        <!-- </NuxtLink> -->
       </div>
     </section>
     <h1 class="main_red_text my-4 px-28">Bands</h1>
@@ -68,7 +69,7 @@
       >
         <p class="text-2xl font-bold main_red_text rotate-180">></p>
       </div> -->
-      <!-- <VideoSlider id="video-container" class="py-10">
+      <VideoSlider id="video-container" class="py-10">
         <VideoCard
           v-for="(video, index) in videos"
           :key="index"
@@ -76,7 +77,7 @@
           :video="video"
           :bandName="video.band.bandName"
         />
-      </VideoSlider> -->
+      </VideoSlider>
       <!-- swiper box black -->
       <!-- <div
         class="bg-black bg-opacity-70 w-46 h-full absolute right-0 z-50 flex justify-center items-center top-0 w-36"
@@ -104,7 +105,6 @@ export default {
       const bands = await $strapi.find('bands')
       const event = await $strapi.find('featured-event')
       const videos = await $strapi.find('videos')
-      console.log('bands')
       return {
         bands,
         event,

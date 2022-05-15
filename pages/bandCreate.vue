@@ -166,14 +166,18 @@ export default {
           users_permissions_user: this.$strapi.user.id,
         })
         this.band = band
+        console.log(band, 'this is the band created ')
       } catch (error) {
         this.errorMessage = 'Sorry ... please try again'
+        console.log('there was a problem')
       }
 
       // set band in store, route to bandadmin
       if (this.band) {
-        await this.$store.commit('setBand', this.band)
-        this.$router.push('/bandadmin')
+        this.$router.push({
+          path: '/bandadmin',
+          query: { band: this.band.id },
+        })
       }
     },
   },

@@ -564,7 +564,7 @@
 export default {
   async asyncData({ $strapi, route }) {
     console.log('starting', route)
-    const band = await $strapi.findOne('bands', 6)
+    const band = await $strapi.findOne('bands', route.query.band)
     return {
       band,
     }

@@ -42,7 +42,9 @@
         <NuxtLink class="shadow-lg btn-home text-center" to="/logout"
           >Logout</NuxtLink
         >
-        <NuxtLink class="shadow-lg btn-home text-center" to="bandadmin"
+        <NuxtLink
+          class="shadow-lg btn-home text-center"
+          :to="{ path: 'bandadmin', query: { band: $strapi.user.band } }"
           >Band Admin</NuxtLink
         >
       </div>
