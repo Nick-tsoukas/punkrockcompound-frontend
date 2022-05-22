@@ -26,9 +26,9 @@ export default {
     ],
   },
 
-  generate: {
-    routes: ['/bandadmin', '/bandprofile/2'],
-  },
+  // generate: {
+  //   routes: ['/bandadmin', '/bandprofile/2'],
+  // },
 
   watchers: {
     webpack: {
@@ -92,10 +92,9 @@ export default {
   },
   publicRuntimeConfig: {
     frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
-    backendUrl: process.env.BACKEND_URL,
+    backendUrl: process.env.BACKEND_URL || 'http://localhost:1337/api',
     isDev: process.env.NODE_ENV === 'development' || false,
   },
-  // || 'http://localhost:1337/api',
   privateRuntimeConfig: {
     // apiSecret: process.env.API_SECRET
   },

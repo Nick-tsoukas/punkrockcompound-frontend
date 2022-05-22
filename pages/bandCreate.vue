@@ -172,11 +172,10 @@ export default {
         console.log('there was a problem')
       }
 
-      // set band in store, route to bandadmin
+      // after creation take user to band admin
       if (this.band) {
         this.$router.push({
           path: '/bandadmin',
-          query: { band: this.band.id },
         })
       }
     },
